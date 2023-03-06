@@ -16,13 +16,13 @@ public class SpicePageController {
     @FXML
     private Label spiceInstruction;
 
-    //@FXML
-    //private void backListener(ActionEvent event) throws IOException { // action listener to go back to landing page
-        //Parent landingPageParent = FXMLLoader.load(getClass().getResource("LandingPage.fxml"));
-        //Scene landingPageScene = new Scene(landingPageParent);
+    @FXML
+    private void backListener(ActionEvent event) throws IOException { // action listener to go back to landing page
+        Parent landingPageParent = FXMLLoader.load(getClass().getResource("LandingPage.fxml"));
+        Scene landingPageScene = new Scene(landingPageParent);
 
-        //Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        //window.setScene(landingPageScene);
-        //window.show();
-    //}
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(landingPageScene);
+        window.show();
+    }
 }
