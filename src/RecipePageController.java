@@ -14,6 +14,9 @@ import javafx.scene.Node;
 public class RecipePageController {
 
     @FXML
+    private ImageView logo;
+    
+    @FXML
     private Label recipeInstruction;
 
     @FXML

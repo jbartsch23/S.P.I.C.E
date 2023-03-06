@@ -14,6 +14,9 @@ import javafx.scene.Node;
 public class MapPageController {
 
     @FXML
+    private ImageView logo;
+    
+    @FXML
     private Label mapInstruction;
 
     @FXML

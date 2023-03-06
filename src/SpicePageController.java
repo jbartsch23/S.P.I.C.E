@@ -14,6 +14,9 @@ import javafx.scene.Node;
 public class SpicePageController {
 
     @FXML
+    private ImageView logo;
+    
+    @FXML
     private Label spiceInstruction;
 
     @FXML
