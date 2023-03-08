@@ -10,8 +10,9 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.scene.Node;
+import javafx.scene.control.Slider;
 
-public class RecipePageController {
+public class MeasurementPageController {
 
     @FXML
     private ImageView logo;
@@ -20,15 +21,27 @@ public class RecipePageController {
     private Label recipeInstruction;
 
     @FXML
+    private Label measurementDisplay;
+
+    @FXML
+    private Slider measurement;
+
+    @FXML
     private Button back;
 
     @FXML
-    private void backListener(ActionEvent event) throws IOException { // action listener to go back to landing page
-        Parent landingPageParent = FXMLLoader.load(getClass().getResource("LandingPage.fxml"));
+    private void backListener(ActionEvent event) throws IOException { // action listener to go back to spice page
+        Parent landingPageParent = FXMLLoader.load(getClass().getResource("SpicePage.fxml"));
         Scene landingPageScene = new Scene(landingPageParent);
 
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(landingPageScene);
         window.show();
+    }
+
+    public void initialize() {
+        measurement.valueProperty().addListener((observable, oldValue, newValue) -> {
+            measurementDisplay.setText("Quantity: " + newValue.intValue() + " tsp");
+        });
     }
 }

@@ -20,6 +20,9 @@ public class SpicePageController {
     private Label spiceInstruction;
 
     @FXML
+    private Button back;
+
+    @FXML
     private void backListener(ActionEvent event) throws IOException { // action listener to go back to landing page
         Parent landingPageParent = FXMLLoader.load(getClass().getResource("LandingPage.fxml"));
         Scene landingPageScene = new Scene(landingPageParent);
