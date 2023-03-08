@@ -30,15 +30,27 @@ public class MeasurementPageController {
     private Button back;
 
     @FXML
-    private void backListener(ActionEvent event) throws IOException { // action listener to go back to spice page
-        Parent landingPageParent = FXMLLoader.load(getClass().getResource("SpicePage.fxml"));
-        Scene landingPageScene = new Scene(landingPageParent);
+    private void backListener(ActionEvent event) throws IOException { // action listener to go back a page
+        Parent backPageParent = FXMLLoader.load(getClass().getResource("SpicePage.fxml"));
+        Scene backPageScene = new Scene(backPageParent);
 
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(landingPageScene);
+        window.setScene(backPageScene);
         window.show();
     }
 
+    @FXML
+    private void forwardListener(ActionEvent event) throws IOException { // action listener to go forward a page
+        Parent forwardPageParent = FXMLLoader.load(getClass().getResource("ConfirmPage.fxml"));
+        Scene forwardPageScene = new Scene(forwardPageParent);
+
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(forwardPageScene);
+        window.show();
+    }
+
+
+    @FXML
     public void initialize() {
         measurement.valueProperty().addListener((observable, oldValue, newValue) -> {
             measurementDisplay.setText("Quantity: " + newValue.intValue() + " tsp");
