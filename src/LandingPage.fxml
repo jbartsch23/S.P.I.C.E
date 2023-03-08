@@ -14,17 +14,17 @@
             <Font name="System Bold" size="36.0" />
          </font>
       </Label>
-      <Button fx:id="spice" layoutX="22.0" layoutY="123.0" mnemonicParsing="false" onAction="#spiceListener" prefHeight="25.0" prefWidth="73.0" text="Spices">
+      <Button fx:id="spice" layoutX="22.0" layoutY="123.0" mnemonicParsing="false" onAction="#spiceListener" prefHeight="25.0" prefWidth="73.0" text="Spices" style="-fx-cursor: hand;">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="recipe" layoutX="22.0" layoutY="191.0" mnemonicParsing="false" onAction="#recipeListener" prefHeight="25.0" prefWidth="73.0" text="Recipes">
+      <Button fx:id="recipe" layoutX="22.0" layoutY="191.0" mnemonicParsing="false" onAction="#recipeListener" prefHeight="25.0" prefWidth="73.0" text="Recipes" style="-fx-cursor: hand;">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="map" layoutX="22.0" layoutY="261.0" mnemonicParsing="false" onAction="#mapListener" text="Mappings">
+      <Button fx:id="map" layoutX="22.0" layoutY="261.0" mnemonicParsing="false" onAction="#mapListener" text="Mappings" style="-fx-cursor: hand;">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

@@ -3,32 +3,37 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" style="-fx-background-color: #1c1f21;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SpicePageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" style="-fx-background-color: #1c1f21;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RecipePageController">
    <children>
-      <Label fx:id="recipeInstruction" layoutX="21.0" layoutY="14.0" prefHeight="17.0" prefWidth="358.0" text="Select spices based on a recipe below." alignment="CENTER" textFill="WHITE">
+      <Label fx:id="recipeInstruction" alignment="CENTER" layoutX="21.0" layoutY="14.0" prefHeight="17.0" prefWidth="358.0" text="Select spices based on a recipe below." textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
       <!-- REVISE LATER -->
-      <ScrollPane layoutX="100.0" layoutY="150.0" prefHeight="200.0" prefWidth="200.0" vbarPolicy="ALWAYS" hbarPolicy="NEVER">
+      <ScrollPane hbarPolicy="NEVER" layoutX="100.0" layoutY="150.0" prefHeight="200.0" prefWidth="200.0" vbarPolicy="ALWAYS">
         <content>
           <VBox>
-            <Button text="Recipe 1" />
-            <Button text="Recipe 2" />
-            <Button text="Recipe 3" />
+            <Button style="-fx-background-color: transparent; -fx-cursor: hand;" text="Recipe 1" onAction="#forwardListener" />
+            <Button style="-fx-background-color: transparent; -fx-cursor: hand;" text="Recipe 2" onAction="#forwardListener" />
+            <Button style="-fx-background-color: transparent; -fx-cursor: hand;" text="Recipe 3" onAction="#forwardListener" />
+            <Button style="-fx-background-color: transparent; -fx-cursor: hand;" text="Recipe 4" onAction="#forwardListener" />
+            <Button style="-fx-background-color: transparent; -fx-cursor: hand;" text="Recipe 5" onAction="#forwardListener" />
+            <Button style="-fx-background-color: transparent; -fx-cursor: hand;" text="Recipe 6" onAction="#forwardListener" />
+            <Button style="-fx-background-color: transparent; -fx-cursor: hand;" text="Recipe 7" onAction="#forwardListener" />
+            <Button style="-fx-background-color: transparent; -fx-cursor: hand;" text="Recipe 8" onAction="#forwardListener" />
           </VBox>
         </content>
       </ScrollPane>
-      <Button fx:id="back" layoutX="20.0" layoutY="450.0" mnemonicParsing="false" onAction="#backListener" prefHeight="25.0" prefWidth="73.0" text="Back">
+      <Button fx:id="back" layoutX="7.0" layoutY="425.0" mnemonicParsing="false" onAction="#backListener" prefHeight="15.0" prefWidth="73.0" style="-fx-background-color: transparent; -fx-cursor: hand;" text="←" textFill="WHITE">
          <font>
-            <Font name="System Bold" size="12.0" />
+            <Font name="System Bold" size="33.0" />
          </font>
       </Button>
       <ImageView fx:id="logo" fitHeight="150.0" fitWidth="200.0" layoutX="101.0" layoutY="350.0" pickOnBounds="true" preserveRatio="true">
