@@ -1,6 +1,6 @@
 int in1 = 2;
 int in2 = 3;
-#define enA 4
+int enA = 4;
 int in3 = 5;
 
 void setup() {
