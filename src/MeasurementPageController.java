@@ -49,7 +49,6 @@ public class MeasurementPageController {
         window.show();
     }
 
-
     @FXML
     public void initialize() {
         measurement.valueProperty().addListener((observable, oldValue, newValue) -> {

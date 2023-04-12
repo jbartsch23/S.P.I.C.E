@@ -6,6 +6,21 @@
     "configurations": [
         {
             "type": "java",
+            "name": "RecipeConfirmPage",
+            "request": "launch",
+            "mainClass": "RecipeConfirmPage",
+            "projectName": "S.P.I.C.E_c9899f63",
+            "vmArgs": "--module-path \"C:/Program Files/Java/javafx-sdk-19.0.2.1/lib\" --add-modules javafx.controls,javafx.fxml"
+        },
+        {
+            "type": "java",
+            "name": "Common",
+            "request": "launch",
+            "mainClass": "Common",
+            "projectName": "S.P.I.C.E_c9899f63"
+        },
+        {
+            "type": "java",
             "name": "ConfirmPage",
             "request": "launch",
             "mainClass": "ConfirmPage",

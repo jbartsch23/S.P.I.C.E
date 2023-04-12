@@ -50,7 +50,7 @@ public class LandingPageController {
         window.show();
     }
 
-    @FXML
+    /*@FXML
     private void recipeListener(ActionEvent event) throws IOException { // action listener for recipe button
         Parent recipePageParent = FXMLLoader.load(getClass().getResource("RecipePage.fxml"));
         Scene recipePageScene = new Scene(recipePageParent);
@@ -58,6 +58,13 @@ public class LandingPageController {
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(recipePageScene);
         window.show();
+    }*/
+
+    @FXML
+    private void recipeListener(ActionEvent event) throws IOException { // action listener for recipe button
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        RecipePage recipePage = new RecipePage();
+        recipePage.start(window);
     }
 
     @FXML
