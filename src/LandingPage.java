@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
  
 public class LandingPage extends Application {
     @Override
@@ -17,6 +18,7 @@ public class LandingPage extends Application {
   
             primaryStage.setTitle("S.P.I.C.E.");
             primaryStage.setScene(scene);
+            primaryStage.initStyle(StageStyle.UNDECORATED); // hide title bar
             primaryStage.show();
         } catch (IOException e) {
             // TODO Auto-generated catch block

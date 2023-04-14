@@ -77,4 +77,10 @@ public class LandingPageController {
         window.show();
     }
 
+    @FXML
+    private void exitListener(ActionEvent event) throws IOException { // close the window
+        Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+        stage.close();
+    }
+
 }

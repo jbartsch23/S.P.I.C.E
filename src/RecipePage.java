@@ -14,6 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -23,30 +24,21 @@ import javafx.scene.text.Font;
 import javafx.geometry.Pos;
  
 public class RecipePage extends Application {
-    private final TableView<Recipe> table = new TableView<>();
-    private final ObservableList<Recipe> data = FXCollections.observableArrayList();
+    private final TableView<recipeInfo> table = new TableView<>();
+    private final ObservableList<recipeInfo> data = FXCollections.observableArrayList(
+        new recipeInfo("Garlic Butter Chicken"),
+        new recipeInfo("Honey Garlic Pork")
+    );
 
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("S.P.I.C.E.");
 
-        TableColumn<Recipe, String> recipeCol = new TableColumn<>("Recipe Name");
+        TableColumn<recipeInfo, String> recipeCol = new TableColumn<>("Recipe Name");
         recipeCol.setStyle("-fx-alignment: CENTER");
         recipeCol.setCellValueFactory(new PropertyValueFactory<>("RecipeName"));
 
         table.getColumns().addAll(recipeCol);
-
-        try {
-            Connection conn = Common.makeDBConnection();
-            PreparedStatement stmt = conn.prepareStatement("SELECT RecipeName FROM RecipesInfo");
-            ResultSet result = stmt.executeQuery();
-            while (result.next()) {
-                data.add(new Recipe(result.getString("RecipeName"))); // extract recipe names from the database table
-            }
-            Common.closeDBConnection(conn);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
         table.setItems(data);
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
@@ -99,7 +91,6 @@ public class RecipePage extends Application {
         borderPane.setCenter(table);
 
         Scene scene = new Scene(anchorPane, 400, 500);
-        //scene.setFill(javafx.scene.paint.Color.web("1c1f21"));
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -114,10 +105,10 @@ public class RecipePage extends Application {
         window.show();
     }
 
-    public static class Recipe { // to hold recipe data
-        private final String RecipeName;
-        
-        private Recipe(String RecipeName) {
+    public class recipeInfo {
+        private String RecipeName;
+
+        public recipeInfo(String RecipeName) {
             this.RecipeName = RecipeName;
         }
 
