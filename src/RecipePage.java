@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.sql.*;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -12,9 +11,9 @@ import javafx.stage.Stage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -25,9 +24,9 @@ import javafx.geometry.Pos;
  
 public class RecipePage extends Application {
     private final TableView<recipeInfo> table = new TableView<>();
-    private final ObservableList<recipeInfo> data = FXCollections.observableArrayList(
-        new recipeInfo("Garlic Butter Chicken"),
-        new recipeInfo("Honey Garlic Pork")
+    private final ObservableList<recipeInfo> data = FXCollections.observableArrayList( // populate table
+        new recipeInfo("Garlic Butter Chicken", "Salt", "Pepper", "Garlic", 0.50, 0.75, 0.25),
+        new recipeInfo("Honey Garlic Pork", "Pepper", "Garlic Powder", "Garlic Cloves", 0.80, 0.30, 0.40)
     );
 
     @Override
@@ -44,6 +43,23 @@ public class RecipePage extends Application {
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         table.setPrefWidth(300);
         table.setPrefHeight(400);
+
+        table.setRowFactory(event -> { // to fetch spice and quantity data for selected recipe
+            TableRow<recipeInfo> row = new TableRow<>();
+            row.setOnMouseClicked(click -> {
+                if (click.getClickCount() == 1 && !row.isEmpty()) {
+                    //recipeInfo selectedRecipe = row.getItem();
+                    try {
+                        Stage window = (Stage) ((Node) click.getSource()).getScene().getWindow();
+                        RecipeConfirmPage recipeConfirmPage = new RecipeConfirmPage();
+                        recipeConfirmPage.start(window);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            return row;
+        });
 
         BorderPane borderPane = new BorderPane();
 
@@ -105,15 +121,51 @@ public class RecipePage extends Application {
         window.show();
     }
 
-    public class recipeInfo {
+    public class recipeInfo { // class to hold all necessary recipe data
         private String RecipeName;
+        private String Spice1;
+        private String Spice2;
+        private String Spice3;
+        private double Quantity1;
+        private double Quantity2;
+        private double Quantity3;
 
-        public recipeInfo(String RecipeName) {
+        public recipeInfo(String RecipeName, String Spice1, String Spice2, String Spice3, double Quantity1, double Quantity2, double Quantity3) {
             this.RecipeName = RecipeName;
+            this.Spice1 = Spice1;
+            this.Spice2 = Spice2;
+            this.Spice3 = Spice3;
+            this.Quantity1 = Quantity1;
+            this.Quantity2 = Quantity2;
+            this.Quantity3 = Quantity3;
         }
 
         public String getRecipeName() {
             return RecipeName;
+        }
+
+        public String getSpice1() {
+            return Spice1;
+        }
+
+        public String getSpice2() {
+            return Spice2;
+        }
+
+        public String getSpice3() {
+            return Spice3;
+        }
+
+        public double Quantity1() {
+            return Quantity1;
+        }
+
+        public double Quantity2() {
+            return Quantity2;
+        }
+
+        public double Quantity3() {
+            return Quantity3;
         }
     }
     

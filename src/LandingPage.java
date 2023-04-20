@@ -19,6 +19,7 @@ public class LandingPage extends Application {
             primaryStage.setTitle("S.P.I.C.E.");
             primaryStage.setScene(scene);
             primaryStage.initStyle(StageStyle.UNDECORATED); // hide title bar
+            primaryStage.setFullScreen(true);
             primaryStage.show();
         } catch (IOException e) {
             // TODO Auto-generated catch block
