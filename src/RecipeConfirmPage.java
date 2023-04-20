@@ -1,9 +1,6 @@
-import java.io.IOException;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,7 +9,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 
 public class RecipeConfirmPage extends Application {
 
@@ -23,38 +19,46 @@ public class RecipeConfirmPage extends Application {
         AnchorPane anchorPane = new AnchorPane();
         anchorPane.setStyle("-fx-background-color: #1c1f21;");
         anchorPane.getChildren().add(borderPane);
+
+        AnchorPane.setTopAnchor(anchorPane, 0.0);
+        AnchorPane.setLeftAnchor(anchorPane, 0.0);
+        AnchorPane.setRightAnchor(anchorPane, 0.0);
+        AnchorPane.setBottomAnchor(anchorPane, 0.0);
         
         Label confirmInstruction = new Label();
         confirmInstruction.setText("Do you want to dispense the following spices?");
         confirmInstruction.setTextFill(Color.WHITE);
-        confirmInstruction.setFont(new Font("System Bold", 16.0));
+        confirmInstruction.setFont(new Font("System Bold", 36.0));
+        confirmInstruction.setMaxWidth(Double.MAX_VALUE);
+        AnchorPane.setLeftAnchor(confirmInstruction, 0.0);
+        AnchorPane.setRightAnchor(confirmInstruction, 0.0);
         confirmInstruction.setAlignment(Pos.CENTER);
-        confirmInstruction.setLayoutX(21.0);
-        confirmInstruction.setLayoutY(14.0);
         confirmInstruction.setPrefWidth(358.0);
-        confirmInstruction.setPrefHeight(17.0);
+        confirmInstruction.setPrefHeight(40.0);
 
         anchorPane.getChildren().add(confirmInstruction);
 
-        Button backButton = new Button("←"); // back button to go back to recipe page
-        backButton.setLayoutX(7.0);
-        backButton.setLayoutY(425.0);
-        backButton.setPrefWidth(73.0);
-        backButton.setPrefHeight(15.0);
+        Button backButton = new Button("←"); // back button to go back to recipes page
+        backButton.setLayoutX(10);
+        backButton.setLayoutY(anchorPane.getHeight() - backButton.getPrefHeight() - 10);
+        backButton.setPrefWidth(100.0);
+        backButton.setPrefHeight(100.0);
         backButton.setTextFill(Color.WHITE);
         backButton.setStyle("-fx-background-color: transparent; -fx-cursor: hand;");
-        backButton.setFont(new Font("System Bold", 33.0));
-        backButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent event) {
-                try {
-                    backListener(event);
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            }
+        backButton.setFont(new Font("System Bold", 44.0));
+        backButton.setOnAction(event -> {
+            primaryStage.close();
+            backListener();
         });
         anchorPane.getChildren().add(backButton);
+
+        anchorPane.widthProperty().addListener((obs, oldWidth, newWidth) -> {
+            backButton.setLayoutX(10);
+        });
+        
+        anchorPane.heightProperty().addListener((obs, oldHeight, newHeight) -> {
+            backButton.setLayoutY(newHeight.doubleValue() - backButton.getPrefHeight() - 10);
+        });
 
         AnchorPane.setTopAnchor(borderPane, 100.0);
         AnchorPane.setLeftAnchor(borderPane, 100.0);
@@ -63,16 +67,18 @@ public class RecipeConfirmPage extends Application {
 
         //borderPane.setCenter(table);
 
-        Scene scene = new Scene(anchorPane, 400, 500);
+        Scene scene = new Scene(anchorPane, 1024, 600);
         primaryStage.setScene(scene);
+        //primaryStage.setFullScreen(true);
         primaryStage.show();
     }
 
-    @FXML
-    private void backListener(ActionEvent event) throws IOException { // go back to recipe page
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    private void backListener() { // go back to recipes page
+        Stage stage = new Stage();
+        stage.initStyle(StageStyle.UNDECORATED);
+        //stage.setFullScreen(true);
         RecipePage recipePage = new RecipePage();
-        recipePage.start(window);
+        recipePage.start(stage);
     }
     
     public static void main(String[] args) {
