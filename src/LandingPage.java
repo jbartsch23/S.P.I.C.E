@@ -10,6 +10,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -92,7 +94,7 @@ public class LandingPage extends Application {
             primaryStage.close();
             spiceListener();
         });
-        anchorPane.getChildren().add(spice);
+        //anchorPane.getChildren().add(spice);
 
         Label spiceLabel = new Label();
         spiceLabel.setText("Select spices of your choice.");
@@ -103,7 +105,7 @@ public class LandingPage extends Application {
         spiceLabel.setPrefWidth(400.0);
         spiceLabel.setPrefHeight(50.0);
 
-        anchorPane.getChildren().add(spiceLabel);
+        //anchorPane.getChildren().add(spiceLabel);
 
         Button recipe = new Button("Recipes"); // go to recipes page
         recipe.setLayoutX(anchorPane.getWidth() + recipe.getPrefWidth() + 200);
@@ -116,7 +118,7 @@ public class LandingPage extends Application {
             primaryStage.close();
             recipeListener();
         });
-        anchorPane.getChildren().add(recipe);
+        //anchorPane.getChildren().add(recipe);
 
         Label recipeLabel = new Label();
         recipeLabel.setText("Select spices based off a recipe.");
@@ -127,7 +129,7 @@ public class LandingPage extends Application {
         recipeLabel.setPrefWidth(400.0);
         recipeLabel.setPrefHeight(50.0);
 
-        anchorPane.getChildren().add(recipeLabel);
+        //anchorPane.getChildren().add(recipeLabel);
 
         Button map = new Button("Mappings"); // go to mappings page
         map.setLayoutX(anchorPane.getWidth() + map.getPrefWidth() + 200);
@@ -140,7 +142,7 @@ public class LandingPage extends Application {
             primaryStage.close();
             mapListener();
         });
-        anchorPane.getChildren().add(map);
+        //anchorPane.getChildren().add(map);
 
         Label mapLabel = new Label();
         mapLabel.setText("Assign spices to containers.");
@@ -151,7 +153,45 @@ public class LandingPage extends Application {
         mapLabel.setPrefWidth(400.0);
         mapLabel.setPrefHeight(50.0);
 
-        anchorPane.getChildren().add(mapLabel);
+        //anchorPane.getChildren().add(mapLabel);
+        
+        HBox spiceSelectionBox = new HBox();
+        spiceSelectionBox.setAlignment(Pos.CENTER);
+        spiceSelectionBox.setSpacing(50);
+
+        spiceSelectionBox.getChildren().addAll(spice, spiceLabel);
+
+        //AnchorPane.setTopAnchor(spiceSelectionBox, 150.0);
+        //AnchorPane.setLeftAnchor(spiceSelectionBox, 50.0);
+        //AnchorPane.setRightAnchor(spiceSelectionBox, 50.0);
+
+        HBox recipeSelectionBox = new HBox();
+        recipeSelectionBox.setAlignment(Pos.CENTER);
+        recipeSelectionBox.setSpacing(50);
+
+        recipeSelectionBox.getChildren().addAll(recipe, recipeLabel);
+
+        //AnchorPane.setTopAnchor(recipeSelectionBox, 150.0);
+        //AnchorPane.setLeftAnchor(recipeSelectionBox, 50.0);
+        //AnchorPane.setRightAnchor(recipeSelectionBox, 50.0);
+
+        HBox mapSelectionBox = new HBox();
+        mapSelectionBox.setAlignment(Pos.CENTER);
+        mapSelectionBox.setSpacing(50);
+
+        mapSelectionBox.getChildren().addAll(map, mapLabel);
+
+        VBox selectionBox = new VBox();
+        selectionBox.setAlignment(Pos.CENTER);
+        selectionBox.setSpacing(50);
+        
+        selectionBox.getChildren().addAll(spiceSelectionBox, recipeSelectionBox, mapSelectionBox);
+        AnchorPane.setTopAnchor(selectionBox, 150.0);
+        AnchorPane.setLeftAnchor(selectionBox, 50.0);
+        AnchorPane.setRightAnchor(selectionBox, 50.0);
+        AnchorPane.setBottomAnchor(selectionBox, 150.0);
+
+        anchorPane.getChildren().add(selectionBox);
 
         Image logo = new Image("logo.png");
         ImageView logoView = new ImageView(logo);
@@ -168,7 +208,7 @@ public class LandingPage extends Application {
         });
 
         try {
-            Scene scene = new Scene(anchorPane, 1024, 600); // TODO: Modify application to be 1024x600 pixels
+            Scene scene = new Scene(anchorPane, 1024, 600);
             primaryStage.initStyle(StageStyle.UNDECORATED);
             //primaryStage.setFullScreen(true);
             primaryStage.setScene(scene);
