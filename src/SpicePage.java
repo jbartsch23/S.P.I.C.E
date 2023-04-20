@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,11 +33,15 @@ public class SpicePage extends Application {
     
     @Override
     public void start(Stage primaryStage) {
+        ArrayList<TableColumn<spiceInfo, String>> columns = new ArrayList<>();
+        
         TableColumn<spiceInfo, String> spiceCol = new TableColumn<>("Spice");
         spiceCol.setStyle("-fx-alignment: CENTER");
         spiceCol.setCellValueFactory(new PropertyValueFactory<>("Spice"));
 
-        table.getColumns().addAll(spiceCol);
+        columns.add(spiceCol);
+
+        table.getColumns().addAll(columns);
 
         table.setItems(data);
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);

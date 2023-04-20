@@ -94,7 +94,6 @@ public class LandingPage extends Application {
             primaryStage.close();
             spiceListener();
         });
-        //anchorPane.getChildren().add(spice);
 
         Label spiceLabel = new Label();
         spiceLabel.setText("Select spices of your choice.");
@@ -104,8 +103,6 @@ public class LandingPage extends Application {
         spiceLabel.setLayoutY(anchorPane.getHeight() + spiceLabel.getPrefHeight() + 150);
         spiceLabel.setPrefWidth(400.0);
         spiceLabel.setPrefHeight(50.0);
-
-        //anchorPane.getChildren().add(spiceLabel);
 
         Button recipe = new Button("Recipes"); // go to recipes page
         recipe.setLayoutX(anchorPane.getWidth() + recipe.getPrefWidth() + 200);
@@ -118,7 +115,6 @@ public class LandingPage extends Application {
             primaryStage.close();
             recipeListener();
         });
-        //anchorPane.getChildren().add(recipe);
 
         Label recipeLabel = new Label();
         recipeLabel.setText("Select spices based off a recipe.");
@@ -128,8 +124,6 @@ public class LandingPage extends Application {
         recipeLabel.setLayoutY(anchorPane.getHeight() + recipeLabel.getPrefHeight() + 230);
         recipeLabel.setPrefWidth(400.0);
         recipeLabel.setPrefHeight(50.0);
-
-        //anchorPane.getChildren().add(recipeLabel);
 
         Button map = new Button("Mappings"); // go to mappings page
         map.setLayoutX(anchorPane.getWidth() + map.getPrefWidth() + 200);
@@ -142,7 +136,6 @@ public class LandingPage extends Application {
             primaryStage.close();
             mapListener();
         });
-        //anchorPane.getChildren().add(map);
 
         Label mapLabel = new Label();
         mapLabel.setText("Assign spices to containers.");
@@ -152,8 +145,6 @@ public class LandingPage extends Application {
         mapLabel.setLayoutY(anchorPane.getHeight() + mapLabel.getPrefHeight() + 310);
         mapLabel.setPrefWidth(400.0);
         mapLabel.setPrefHeight(50.0);
-
-        //anchorPane.getChildren().add(mapLabel);
         
         HBox spiceSelectionBox = new HBox();
         spiceSelectionBox.setAlignment(Pos.CENTER);
@@ -161,19 +152,11 @@ public class LandingPage extends Application {
 
         spiceSelectionBox.getChildren().addAll(spice, spiceLabel);
 
-        //AnchorPane.setTopAnchor(spiceSelectionBox, 150.0);
-        //AnchorPane.setLeftAnchor(spiceSelectionBox, 50.0);
-        //AnchorPane.setRightAnchor(spiceSelectionBox, 50.0);
-
         HBox recipeSelectionBox = new HBox();
         recipeSelectionBox.setAlignment(Pos.CENTER);
         recipeSelectionBox.setSpacing(50);
 
         recipeSelectionBox.getChildren().addAll(recipe, recipeLabel);
-
-        //AnchorPane.setTopAnchor(recipeSelectionBox, 150.0);
-        //AnchorPane.setLeftAnchor(recipeSelectionBox, 50.0);
-        //AnchorPane.setRightAnchor(recipeSelectionBox, 50.0);
 
         HBox mapSelectionBox = new HBox();
         mapSelectionBox.setAlignment(Pos.CENTER);

@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -26,12 +28,15 @@ public class RecipePage extends Application {
     @Override
     public void start(Stage primaryStage) {
         //primaryStage.setTitle("S.P.I.C.E.");
-
+        ArrayList<TableColumn<recipeInfo, String>> columns = new ArrayList<>();
+        
         TableColumn<recipeInfo, String> recipeCol = new TableColumn<>("Recipe Name");
         recipeCol.setStyle("-fx-alignment: CENTER");
         recipeCol.setCellValueFactory(new PropertyValueFactory<>("RecipeName"));
 
-        table.getColumns().addAll(recipeCol);
+        columns.add(recipeCol);
+
+        table.getColumns().addAll(columns);
 
         table.setItems(data);
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);

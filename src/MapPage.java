@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,11 +32,15 @@ public class MapPage extends Application {
     
     @Override
     public void start(Stage primaryStage) {
+        ArrayList<TableColumn<mapInfo, String>> columns = new ArrayList<>();
+        
         TableColumn<mapInfo, String> mapCol = new TableColumn<>("Mapping");
         mapCol.setStyle("-fx-alignment: CENTER");
         mapCol.setCellValueFactory(new PropertyValueFactory<>("Mapping"));
 
-        table.getColumns().addAll(mapCol);
+        columns.add(mapCol);
+
+        table.getColumns().addAll(columns);
 
         table.setItems(data);
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);

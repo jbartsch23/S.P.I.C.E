@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,6 +26,8 @@ public class ConfirmPage extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        ArrayList<TableColumn<confirmSpiceInfo, String>> columns = new ArrayList<>();
+        
         TableColumn<confirmSpiceInfo, String> spiceCol = new TableColumn<>("Spice");
         spiceCol.setStyle("-fx-alignment: CENTER");
         spiceCol.setCellValueFactory(new PropertyValueFactory<>("Spice"));
@@ -32,8 +36,10 @@ public class ConfirmPage extends Application {
         quantityCol.setStyle("-fx-alignment: CENTER");
         quantityCol.setCellValueFactory(new PropertyValueFactory<>("Quantity"));
 
-        table.getColumns().addAll(spiceCol);
-        table.getColumns().addAll(quantityCol);
+        columns.add(spiceCol);
+        columns.add(quantityCol);
+
+        table.getColumns().addAll(columns);
 
         table.setItems(data);
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
