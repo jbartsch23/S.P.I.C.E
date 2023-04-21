@@ -52,7 +52,10 @@ public class SpicePage extends Application {
             TableRow<spiceInfo> row = new TableRow<>();
             row.setOnMouseClicked(click -> {
                 if (click.getClickCount() == 1 && !row.isEmpty()) {
-                    //recipeInfo selectedRecipe = row.getItem();
+                    spiceInfo selectedSpice = table.getSelectionModel().getSelectedItem();
+                    if (selectedSpice != null) {
+                        //ConfirmPage.data.addAll(selectedSpice);
+                    }
                     try {
                         primaryStage.close();
                         measurementListener();

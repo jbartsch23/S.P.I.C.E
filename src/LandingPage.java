@@ -1,4 +1,5 @@
 import java.io.IOException;
+//import java.util.Scanner;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -17,6 +18,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.scene.Node;
+//import com.fazecast.jSerialComm.*;
  
 public class LandingPage extends Application {
     @Override
@@ -91,6 +93,7 @@ public class LandingPage extends Application {
         spice.setStyle("-fx-cursor: hand;");
         spice.setFont(new Font("System Bold", 24.0));
         spice.setOnAction(event -> {
+            SerialCommunication.testComm();
             primaryStage.close();
             spiceListener();
         });
