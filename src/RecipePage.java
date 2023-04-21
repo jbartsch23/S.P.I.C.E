@@ -10,6 +10,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -105,10 +107,24 @@ public class RecipePage extends Application {
             backButton.setLayoutY(newHeight.doubleValue() - backButton.getPrefHeight() - 10);
         });
 
-        AnchorPane.setTopAnchor(borderPane, 100.0);
-        AnchorPane.setLeftAnchor(borderPane, 100.0);
-        AnchorPane.setRightAnchor(borderPane, 100.0);
-        AnchorPane.setBottomAnchor(borderPane, 100.0);
+        Image logo = new Image("logo.png");
+        ImageView logoView = new ImageView(logo);
+        logoView.setPreserveRatio(true);
+        logoView.setFitWidth(200); // desired width of image
+        logoView.setFitHeight(200); // desired height of image
+
+        anchorPane.getChildren().add(logoView);
+        AnchorPane.setBottomAnchor(logoView, 0.0);
+        AnchorPane.setLeftAnchor(logoView, (anchorPane.getWidth() - logoView.getFitWidth()) / 2); // center horizontally
+
+        anchorPane.widthProperty().addListener((obs, oldWidth, newWidth) -> {
+            AnchorPane.setLeftAnchor(logoView, (newWidth.doubleValue() - logoView.getFitWidth()) / 2);
+        });
+
+        AnchorPane.setTopAnchor(borderPane, 140.0);
+        AnchorPane.setLeftAnchor(borderPane, 140.0);
+        AnchorPane.setRightAnchor(borderPane, 140.0);
+        AnchorPane.setBottomAnchor(borderPane, 140.0);
 
         borderPane.setCenter(table);
 
