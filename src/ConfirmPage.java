@@ -18,6 +18,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import com.fazecast.jSerialComm.*;
  
 public class ConfirmPage extends Application {
     private final TableView<confirmSpiceInfo> table = new TableView<>();
@@ -118,7 +119,9 @@ public class ConfirmPage extends Application {
 
         Button yes = new Button("Yes");
         yes.setOnAction(event -> {
-
+            SerialCommunication.testComm();
+            primaryStage.close();
+            homeListener();
         });
 
         Button no = new Button("No");
@@ -145,6 +148,14 @@ public class ConfirmPage extends Application {
         //stage.setFullScreen(true);
         MeasurementPage measurementPage = new MeasurementPage();
         measurementPage.start(stage);
+    }
+
+    private void homeListener() {
+        Stage stage = new Stage();
+        stage.initStyle(StageStyle.UNDECORATED);
+        //stage.setFullScreen(true);
+        LandingPage landingPage = new LandingPage();
+        landingPage.start(stage);
     }
 
     public class confirmSpiceInfo { // class to hold all necessary spice data

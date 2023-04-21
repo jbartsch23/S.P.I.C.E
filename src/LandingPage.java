@@ -93,7 +93,6 @@ public class LandingPage extends Application {
         spice.setStyle("-fx-cursor: hand;");
         spice.setFont(new Font("System Bold", 24.0));
         spice.setOnAction(event -> {
-            SerialCommunication.testComm();
             primaryStage.close();
             spiceListener();
         });
