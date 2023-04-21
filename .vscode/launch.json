@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "SerialCommunication",
+            "request": "launch",
+            "mainClass": "SerialCommunication",
+            "projectName": "S.P.I.C.E_c9899f63"
+        },
+        {
+            "type": "java",
             "name": "RecipeConfirmPage",
             "request": "launch",
             "mainClass": "RecipeConfirmPage",

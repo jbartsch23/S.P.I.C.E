@@ -4,6 +4,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -116,6 +118,20 @@ public class MeasurementPage extends Application {
             confirmListener();
         });
         anchorPane.getChildren().add(view);
+
+        Image logo = new Image("logo.png");
+        ImageView logoView = new ImageView(logo);
+        logoView.setPreserveRatio(true);
+        logoView.setFitWidth(200); // desired width of image
+        logoView.setFitHeight(200); // desired height of image
+
+        anchorPane.getChildren().add(logoView);
+        AnchorPane.setBottomAnchor(logoView, 0.0);
+        AnchorPane.setLeftAnchor(logoView, (anchorPane.getWidth() - logoView.getFitWidth()) / 2); // center horizontally
+
+        anchorPane.widthProperty().addListener((obs, oldWidth, newWidth) -> {
+            AnchorPane.setLeftAnchor(logoView, (newWidth.doubleValue() - logoView.getFitWidth()) / 2);
+        });
 
         Scene scene = new Scene(anchorPane, 1024, 600);
         //primaryStage.initStyle(StageStyle.UNDECORATED);

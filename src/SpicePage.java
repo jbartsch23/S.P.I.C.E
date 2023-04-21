@@ -56,7 +56,7 @@ public class SpicePage extends Application {
                 if (click.getClickCount() == 1 && !row.isEmpty()) {
                     spiceInfo selectedSpice = table.getSelectionModel().getSelectedItem();
                     if (selectedSpice != null) {
-                        //ConfirmPage.data.addAll(selectedSpice);
+                        //insertSpice(selectedSpice);
                     }
                     try {
                         primaryStage.close();
@@ -154,6 +154,11 @@ public class SpicePage extends Application {
         public String getSpice() {
             return spice;
         }
+    }
+
+    private void insertSpice(spiceInfo selectedSpice) {
+        Stage stage = new Stage();
+
     }
 
     private void backListener() { // go back to landing page

@@ -5,14 +5,14 @@ import com.fazecast.jSerialComm.*;
 public class SerialCommunication {
     public static void testComm() {
         Scanner sc = new Scanner(System.in);
-        // System.out.println("List COM ports");
+        //System.out.println("List COM ports");
         SerialPort[] AvailablePorts = SerialPort.getCommPorts();
 
         // use the for loop to print the available serial ports
         // for(SerialPort S : AvailablePorts)
         // System.out.println("\n " + S.toString());
 
-        SerialPort myPort = AvailablePorts[0];
+        SerialPort myPort = AvailablePorts[2]; // may have to change based on what port the arduino is on
 
         int baudRate = 9600;
         int dataBits = 8;

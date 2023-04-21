@@ -21,8 +21,8 @@ import javafx.stage.StageStyle;
 import com.fazecast.jSerialComm.*;
  
 public class ConfirmPage extends Application {
-    private final TableView<confirmSpiceInfo> table = new TableView<>();
-    private final ObservableList<confirmSpiceInfo> data = FXCollections.observableArrayList();
+    private TableView<confirmSpiceInfo> table = new TableView<>();
+    private ObservableList<confirmSpiceInfo> data = FXCollections.observableArrayList();
 
     @Override
     public void start(Stage primaryStage) {
@@ -117,14 +117,14 @@ public class ConfirmPage extends Application {
         optionBox.setAlignment(Pos.CENTER);
         optionBox.setSpacing(300);
 
-        Button yes = new Button("Yes");
+        Button yes = new Button("Yes"); // dispense spices
         yes.setOnAction(event -> {
             SerialCommunication.testComm();
             primaryStage.close();
             homeListener();
         });
 
-        Button no = new Button("No");
+        Button no = new Button("No"); // clear tableview data
         no.setOnAction(event -> {
 
         });
