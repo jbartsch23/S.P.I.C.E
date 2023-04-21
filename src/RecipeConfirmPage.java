@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -6,19 +7,64 @@ import javafx.stage.StageStyle;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.geometry.Pos;
 
 public class RecipeConfirmPage extends Application {
-    private final TableView<confirmSpiceInfo> table = new TableView<>();
-    private final ObservableList<confirmSpiceInfo> data = FXCollections.observableArrayList();
+    private final TableView<confirmRecipeInfo> table = new TableView<>();
+    private final ObservableList<confirmRecipeInfo> data = FXCollections.observableArrayList();
     
     @Override
     public void start(Stage primaryStage) throws Exception {
+        ArrayList<TableColumn<confirmRecipeInfo, String>> columns = new ArrayList<>();
+
+        TableColumn<confirmRecipeInfo, String> spiceCol1 = new TableColumn<>("Spice 1");
+        spiceCol1.setStyle("-fx-alignment: CENTER");
+        spiceCol1.setCellValueFactory(new PropertyValueFactory<>("Spice 1"));
+
+        TableColumn<confirmRecipeInfo, String> spiceCol2 = new TableColumn<>("Spice 2");
+        spiceCol2.setStyle("-fx-alignment: CENTER");
+        spiceCol2.setCellValueFactory(new PropertyValueFactory<>("Spice 2"));
+
+        TableColumn<confirmRecipeInfo, String> spiceCol3 = new TableColumn<>("Spice 3");
+        spiceCol3.setStyle("-fx-alignment: CENTER");
+        spiceCol3.setCellValueFactory(new PropertyValueFactory<>("Spice 3"));
+
+        TableColumn<confirmRecipeInfo, String> quantityCol1 = new TableColumn<>("Quantity 1");
+        quantityCol1.setStyle("-fx-alignment: CENTER");
+        quantityCol1.setCellValueFactory(new PropertyValueFactory<>("Quantity 1"));
+
+        TableColumn<confirmRecipeInfo, String> quantityCol2 = new TableColumn<>("Quantity 2");
+        quantityCol2.setStyle("-fx-alignment: CENTER");
+        quantityCol2.setCellValueFactory(new PropertyValueFactory<>("Quantity 2"));
+
+        TableColumn<confirmRecipeInfo, String> quantityCol3 = new TableColumn<>("Quantity 3");
+        quantityCol3.setStyle("-fx-alignment: CENTER");
+        quantityCol3.setCellValueFactory(new PropertyValueFactory<>("Quantity 3"));
+
+        columns.add(spiceCol1);
+        columns.add(spiceCol2);
+        columns.add(spiceCol3);
+        columns.add(quantityCol1);
+        columns.add(quantityCol2);
+        columns.add(quantityCol3);
+
+        table.getColumns().addAll(columns);
+
+        table.setItems(data);
+        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        table.setPrefWidth(300);
+        table.setPrefHeight(400);
+        
         BorderPane borderPane = new BorderPane();
 
         AnchorPane anchorPane = new AnchorPane();
@@ -65,12 +111,47 @@ public class RecipeConfirmPage extends Application {
             backButton.setLayoutY(newHeight.doubleValue() - backButton.getPrefHeight() - 10);
         });
 
-        AnchorPane.setTopAnchor(borderPane, 100.0);
-        AnchorPane.setLeftAnchor(borderPane, 100.0);
-        AnchorPane.setRightAnchor(borderPane, 100.0);
-        AnchorPane.setBottomAnchor(borderPane, 100.0);
+        Image logo = new Image("logo.png");
+        ImageView logoView = new ImageView(logo);
+        logoView.setPreserveRatio(true);
+        logoView.setFitWidth(200); // desired width of image
+        logoView.setFitHeight(200); // desired height of image
 
-        //borderPane.setCenter(table);
+        anchorPane.getChildren().add(logoView);
+        AnchorPane.setBottomAnchor(logoView, 0.0);
+        AnchorPane.setLeftAnchor(logoView, (anchorPane.getWidth() - logoView.getFitWidth()) / 2); // center horizontally
+
+        anchorPane.widthProperty().addListener((obs, oldWidth, newWidth) -> {
+            AnchorPane.setLeftAnchor(logoView, (newWidth.doubleValue() - logoView.getFitWidth()) / 2);
+        });
+
+        AnchorPane.setTopAnchor(borderPane, 140.0);
+        AnchorPane.setLeftAnchor(borderPane, 140.0);
+        AnchorPane.setRightAnchor(borderPane, 140.0);
+        AnchorPane.setBottomAnchor(borderPane, 140.0);
+
+        borderPane.setCenter(table);
+
+        HBox optionBox = new HBox();
+        optionBox.setAlignment(Pos.CENTER);
+        optionBox.setSpacing(300);
+
+        Button yes = new Button("Yes");
+        yes.setOnAction(event -> {
+
+        });
+
+        Button no = new Button("No");
+        no.setOnAction(event -> {
+
+        });
+
+        optionBox.getChildren().addAll(yes, no);
+
+        anchorPane.getChildren().add(optionBox);
+        AnchorPane.setBottomAnchor(optionBox, 50.0);
+        AnchorPane.setLeftAnchor(optionBox, 150.0);
+        AnchorPane.setRightAnchor(optionBox, 150.0);
 
         Scene scene = new Scene(anchorPane, 1024, 600);
         primaryStage.setScene(scene);
@@ -78,7 +159,7 @@ public class RecipeConfirmPage extends Application {
         primaryStage.show();
     }
 
-    public class confirmSpiceInfo { // class to hold all necessary spice data
+    public class confirmRecipeInfo { // class to hold all necessary spice data
         private String spice1;
         private String spice2;
         private String spice3;
@@ -86,7 +167,7 @@ public class RecipeConfirmPage extends Application {
         private double quantity2;
         private double quantity3;
 
-        public confirmSpiceInfo(String spice1, String spice2, String spice3, double quantity1, double quantity2, double quantity3) {
+        public confirmRecipeInfo(String spice1, String spice2, String spice3, double quantity1, double quantity2, double quantity3) {
             this.spice1 = spice1;
             this.spice2 = spice2;
             this.spice3 = spice3;
