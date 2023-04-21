@@ -1,9 +1,12 @@
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
@@ -11,7 +14,9 @@ import javafx.scene.text.Font;
 import javafx.geometry.Pos;
 
 public class RecipeConfirmPage extends Application {
-
+    private final TableView<confirmSpiceInfo> table = new TableView<>();
+    private final ObservableList<confirmSpiceInfo> data = FXCollections.observableArrayList();
+    
     @Override
     public void start(Stage primaryStage) throws Exception {
         BorderPane borderPane = new BorderPane();
@@ -71,6 +76,48 @@ public class RecipeConfirmPage extends Application {
         primaryStage.setScene(scene);
         //primaryStage.setFullScreen(true);
         primaryStage.show();
+    }
+
+    public class confirmSpiceInfo { // class to hold all necessary spice data
+        private String spice1;
+        private String spice2;
+        private String spice3;
+        private double quantity1;
+        private double quantity2;
+        private double quantity3;
+
+        public confirmSpiceInfo(String spice1, String spice2, String spice3, double quantity1, double quantity2, double quantity3) {
+            this.spice1 = spice1;
+            this.spice2 = spice2;
+            this.spice3 = spice3;
+            this.quantity1 = quantity1;
+            this.quantity2 = quantity2;
+            this.quantity3 = quantity3;
+        }
+
+        public String getSpice1() {
+            return spice1;
+        }
+
+        public String getSpice2() {
+            return spice2;
+        }
+
+        public String getSpice3() {
+            return spice3;
+        }
+
+        public double getQuantity1() {
+            return quantity1;
+        }
+
+        public double getQuantity2() {
+            return quantity2;
+        }
+
+        public double getQuantity3() {
+            return quantity3;
+        }
     }
 
     private void backListener() { // go back to recipes page
