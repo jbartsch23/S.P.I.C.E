@@ -5,7 +5,6 @@ import com.fazecast.jSerialComm.*;
 public class SerialCommunication {
     public static void main (String[] args) {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Enter data to send:");
         // System.out.println("List COM ports");
         SerialPort[] AvailablePorts = SerialPort.getCommPorts();
 
@@ -23,6 +22,7 @@ public class SerialCommunication {
         myPort.setComPortParameters(baudRate, dataBits, stopBits, parity);
         myPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING, 1000, 0);
         myPort.openPort();
+        System.out.println("Enter data to send:");
 
         try{
             while(true) {
@@ -31,11 +31,10 @@ public class SerialCommunication {
                     Thread.sleep(2000);
                     byte[] writeBuffer = s.getBytes();
                     myPort.writeBytes(writeBuffer, writeBuffer.length);
-                    //System.out.println("Transmitted -> " + writeBuffer.length);
                 }
                 while(myPort.bytesAvailable() > 0) {
                     byte[] readBuffer = new byte[myPort.bytesAvailable()];
-                    int numRead = myPort.readBytes(readBuffer, readBuffer.length);
+                    myPort.readBytes(readBuffer, readBuffer.length);
                     for(int i = 0; i < readBuffer.length; i++) {
                         System.out.print((char)readBuffer[i]);
                     }
