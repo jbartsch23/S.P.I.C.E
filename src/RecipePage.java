@@ -1,13 +1,9 @@
-import java.io.IOException;
+import java.util.ArrayList;
+
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.Node;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
@@ -31,13 +27,16 @@ public class RecipePage extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("S.P.I.C.E.");
-
+        //primaryStage.setTitle("S.P.I.C.E.");
+        ArrayList<TableColumn<recipeInfo, String>> columns = new ArrayList<>();
+        
         TableColumn<recipeInfo, String> recipeCol = new TableColumn<>("Recipe Name");
         recipeCol.setStyle("-fx-alignment: CENTER");
         recipeCol.setCellValueFactory(new PropertyValueFactory<>("RecipeName"));
 
-        table.getColumns().addAll(recipeCol);
+        columns.add(recipeCol);
+
+        table.getColumns().addAll(columns);
 
         table.setItems(data);
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
@@ -50,9 +49,8 @@ public class RecipePage extends Application {
                 if (click.getClickCount() == 1 && !row.isEmpty()) {
                     //recipeInfo selectedRecipe = row.getItem();
                     try {
-                        Stage window = (Stage) ((Node) click.getSource()).getScene().getWindow();
-                        RecipeConfirmPage recipeConfirmPage = new RecipeConfirmPage();
-                        recipeConfirmPage.start(window);
+                        primaryStage.close();
+                        confirmListener();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -67,37 +65,45 @@ public class RecipePage extends Application {
         anchorPane.setStyle("-fx-background-color: #1c1f21;");
         anchorPane.getChildren().add(borderPane);
 
+        AnchorPane.setTopAnchor(anchorPane, 0.0);
+        AnchorPane.setLeftAnchor(anchorPane, 0.0);
+        AnchorPane.setRightAnchor(anchorPane, 0.0);
+        AnchorPane.setBottomAnchor(anchorPane, 0.0);
+
         Label recipeInstruction = new Label();
         recipeInstruction.setText("Select spices based on a recipe below.");
         recipeInstruction.setTextFill(Color.WHITE);
-        recipeInstruction.setFont(new Font("System Bold", 18.0));
+        recipeInstruction.setFont(new Font("System Bold", 36.0));
+        recipeInstruction.setMaxWidth(Double.MAX_VALUE);
+        AnchorPane.setLeftAnchor(recipeInstruction, 0.0);
+        AnchorPane.setRightAnchor(recipeInstruction, 0.0);
         recipeInstruction.setAlignment(Pos.CENTER);
-        recipeInstruction.setLayoutX(21.0);
-        recipeInstruction.setLayoutY(14.0);
         recipeInstruction.setPrefWidth(358.0);
-        recipeInstruction.setPrefHeight(17.0);
+        recipeInstruction.setPrefHeight(40.0);
 
         anchorPane.getChildren().add(recipeInstruction);
 
         Button backButton = new Button("←"); // back button to go back to landing page
-        backButton.setLayoutX(7.0);
-        backButton.setLayoutY(425.0);
-        backButton.setPrefWidth(73.0);
-        backButton.setPrefHeight(15.0);
+        backButton.setLayoutX(10);
+        backButton.setLayoutY(anchorPane.getHeight() - backButton.getPrefHeight() - 10);
+        backButton.setPrefWidth(100.0);
+        backButton.setPrefHeight(100.0);
         backButton.setTextFill(Color.WHITE);
         backButton.setStyle("-fx-background-color: transparent; -fx-cursor: hand;");
-        backButton.setFont(new Font("System Bold", 33.0));
-        backButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent event) {
-                try {
-                    backListener(event);
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            }
+        backButton.setFont(new Font("System Bold", 44.0));
+        backButton.setOnAction(event -> {
+            primaryStage.close();
+            backListener();
         });
         anchorPane.getChildren().add(backButton);
+
+        anchorPane.widthProperty().addListener((obs, oldWidth, newWidth) -> {
+            backButton.setLayoutX(10);
+        });
+        
+        anchorPane.heightProperty().addListener((obs, oldHeight, newHeight) -> {
+            backButton.setLayoutY(newHeight.doubleValue() - backButton.getPrefHeight() - 10);
+        });
 
         AnchorPane.setTopAnchor(borderPane, 100.0);
         AnchorPane.setLeftAnchor(borderPane, 100.0);
@@ -106,19 +112,30 @@ public class RecipePage extends Application {
 
         borderPane.setCenter(table);
 
-        Scene scene = new Scene(anchorPane, 400, 500);
+        Scene scene = new Scene(anchorPane, 1024, 600);
         primaryStage.setScene(scene);
+        //primaryStage.setFullScreen(true);
         primaryStage.show();
     }
 
-    @FXML
-    private void backListener(ActionEvent event) throws IOException { // go back to landing page
-        Parent backPageParent = FXMLLoader.load(getClass().getResource("LandingPage.fxml"));
-        Scene backPageScene = new Scene(backPageParent);
-        
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(backPageScene);
-        window.show();
+    private void backListener() { // go back to landing page
+        Stage stage = new Stage();
+        stage.initStyle(StageStyle.UNDECORATED);
+        //stage.setFullScreen(true);
+        LandingPage landingPage = new LandingPage();
+        landingPage.start(stage);
+    }
+
+    private void confirmListener() {
+        Stage stage = new Stage();
+        stage.initStyle(StageStyle.UNDECORATED);
+        //stage.setFullScreen(true);
+        RecipeConfirmPage recipeConfirmPage = new RecipeConfirmPage();
+        try {
+            recipeConfirmPage.start(stage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public class recipeInfo { // class to hold all necessary recipe data
