@@ -1,11 +1,9 @@
 import java.util.ArrayList;
-import java.util.Objects;
+import java.util.Collections;
+import java.util.List;
 
 import javafx.application.Application;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -39,6 +37,7 @@ public class SpicePage extends Application {
         new spiceInfo("Curry Powder", 7, 0.0),
         new spiceInfo("Turmeric", 8, 0.0)
     );
+    ArrayList<spiceInfo> rows = new ArrayList<>();
 
     
     @Override
@@ -109,6 +108,8 @@ public class SpicePage extends Application {
         quantityCol.setStyle("-fx-alignment: CENTER");
         quantityCol.setCellValueFactory(cellData -> {
             // Retrieve the measurement value from the Slider
+
+            // Could be table bug
             double measurement = Math.floor(measurementSlider.getValue() * 100) / 100;
             // Create an ObservableValue<Double> that wraps the measurement value
             return new SimpleObjectProperty<>(measurement);
@@ -216,20 +217,38 @@ public class SpicePage extends Application {
                     int mapValue = selectedSpice.getMapping();
                     double measurement = measurementSlider.getValue();
                     selectedSpicesList.add(new spiceInfo(spiceName, mapValue, measurement)); // obtaining user's selected spices
-                    selectedSpiceTable.refresh();
+                    //System.out.println()
                 }
             }
-            ArrayList<spiceInfo> rows = new ArrayList<>();
+
+            //ArrayList<spiceInfo> rows = new ArrayList<>();
 
             ObservableList<spiceInfo> items = selectedSpiceTable.getItems();
 
             for (spiceInfo item : items) {
                 rows.add(item);
+                System.out.println("Added item: " + item);
             }
 
+            Collections.sort(rows);
+
+            System.out.println("Selected spice data: ");
             for (spiceInfo row : rows) {
                 System.out.println(row.toString());
             }
+
+            System.out.println("");
+
+            List<Integer> mappingValues = new ArrayList<>();
+
+            for (spiceInfo item : items) {
+                int mappingValue = item.getMapping();
+                mappingValues.add(mappingValue);
+            }
+
+            Collections.sort(mappingValues);
+
+            System.out.println("Sorted mapping values: " + mappingValues);
 
             System.out.println("");
         });
@@ -252,7 +271,7 @@ public class SpicePage extends Application {
         primaryStage.show();
     }
 
-    public class spiceInfo { // class to hold all necessary spice data
+    public class spiceInfo implements Comparable<spiceInfo> { // class to hold all necessary spice data
         private String spice;
         private int mapping;
         private double quantity;
@@ -285,20 +304,9 @@ public class SpicePage extends Application {
         }
 
         @Override
-        public boolean equals(Object obj) {
-            if (this == obj) {
-                return true;
-            }
-            if (!(obj instanceof spiceInfo)) {
-                return false;
-            }
-            spiceInfo other = (spiceInfo) obj;
-            return Objects.equals(getSpice(), other.getSpice());
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(getSpice());
+        public int compareTo(spiceInfo other) {
+            // Compare by mapping value
+            return Integer.compare(this.mapping, other.mapping);
         }
     }
 
@@ -371,6 +379,26 @@ public class SpicePage extends Application {
         AnchorPane.setRightAnchor(borderPane, 140.0);
         AnchorPane.setBottomAnchor(borderPane, 140.0);
 
+        ArrayList<spiceInfo> rows = new ArrayList<>();
+
+        ObservableList<spiceInfo> items = selectedSpiceTable.getItems();
+
+        for (spiceInfo item : items) {
+            rows.add(item);
+            System.out.println("Added item: " + item);
+        }
+
+        Collections.sort(rows);
+
+        System.out.println("ACTUAL TABLE: \n");
+
+        System.out.println("Selected spice data: ");
+        for (spiceInfo row : rows) {
+            System.out.println(row.toString());
+        }
+
+        System.out.println("");
+
         borderPane.setCenter(selectedSpiceTable);
 
         HBox optionBox = new HBox();
@@ -379,7 +407,7 @@ public class SpicePage extends Application {
 
         Button yes = new Button("Yes"); // dispense spices
         yes.setOnAction(event -> {
-            SerialCommunication.testComm();
+            //SerialCommunication.testComm();
             stage.close();
             homeListener();
         });

@@ -367,7 +367,7 @@ public class RecipePage extends Application {
 
         Button yes = new Button("Yes"); // dispense spices
         yes.setOnAction(event -> {
-            SerialCommunication.testComm();
+            //SerialCommunication.testComm();
             stage.close();
             homeListener();
         });
