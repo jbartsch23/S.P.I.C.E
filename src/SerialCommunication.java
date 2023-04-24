@@ -1,9 +1,9 @@
 import java.util.Scanner;
 
-//import com.fazecast.jSerialComm.*;
+import com.fazecast.jSerialComm.*;
 
 public class SerialCommunication {
-    /*public static void testComm() {
+    public static void testComm() {
         Scanner sc = new Scanner(System.in);
         //System.out.println("List COM ports");
         SerialPort[] AvailablePorts = SerialPort.getCommPorts();
@@ -45,9 +45,9 @@ public class SerialCommunication {
         }
         myPort.closePort();
         sc.close();
-    }*/
+    }
 
     public static void main (String[] args) {
-        //testComm();
+        testComm();
     }
 }

@@ -1,9 +1,7 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import javafx.application.Application;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -106,14 +104,7 @@ public class SpicePage extends Application {
 
         TableColumn<spiceInfo, Double> quantityCol = new TableColumn<>("Quantity");
         quantityCol.setStyle("-fx-alignment: CENTER");
-        quantityCol.setCellValueFactory(cellData -> {
-            // Retrieve the measurement value from the Slider
-
-            // Could be table bug
-            double measurement = Math.floor(measurementSlider.getValue() * 100) / 100;
-            // Create an ObservableValue<Double> that wraps the measurement value
-            return new SimpleObjectProperty<>(measurement);
-        });
+        quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 
         spiceColumn.add(spiceColFinal);
         mapColumn.add(mapCol);
@@ -215,7 +206,7 @@ public class SpicePage extends Application {
                 if (!exists) {
                     String spiceName = selectedSpice.getSpice();
                     int mapValue = selectedSpice.getMapping();
-                    double measurement = measurementSlider.getValue();
+                    double measurement = Math.floor(measurementSlider.getValue() * 100) / 100;
                     selectedSpicesList.add(new spiceInfo(spiceName, mapValue, measurement)); // obtaining user's selected spices
                     //System.out.println()
                 }
