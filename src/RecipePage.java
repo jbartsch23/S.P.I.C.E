@@ -1,7 +1,8 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javafx.application.Application;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -25,13 +26,16 @@ import javafx.geometry.Pos;
 public class RecipePage extends Application {
     private final TableView<recipeInfo> table = new TableView<>();
     private final ObservableList<recipeInfo> data = FXCollections.observableArrayList( // populate table
-        new recipeInfo("Garlic Butter Chicken", "Salt", "Pepper", "Garlic", 0.50, 0.75, 0.25),
-        new recipeInfo("Honey Garlic Pork", "Pepper", "Garlic Powder", "Garlic Cloves", 0.80, 0.30, 0.40)
+        new recipeInfo("Garlic Butter Chicken", "Salt", "Pepper", "Garlic", 1, 2, 4, 0.50, 0.75, 0.25),
+        new recipeInfo("Honey Garlic Pork", "Pepper", "Garlic Powder", "Garlic", 2, 3, 4, 0.80, 0.30, 0.40)
     );
+    TableView<spicesQuantities> selectedRecipeTable = new TableView<>();
+
+    //ArrayList<String> spices;
+    //HashMap<Integer, Double> hashData = new HashMap<>();
 
     @Override
     public void start(Stage primaryStage) {
-        //primaryStage.setTitle("S.P.I.C.E.");
         ArrayList<TableColumn<recipeInfo, String>> columns = new ArrayList<>();
         
         TableColumn<recipeInfo, String> recipeCol = new TableColumn<>("Recipe Name");
@@ -47,16 +51,54 @@ public class RecipePage extends Application {
         table.setPrefWidth(300);
         table.setPrefHeight(400);
 
+        ObservableList<spicesQuantities> selectedRecipeData = FXCollections.observableArrayList();
+
+        ArrayList<TableColumn<spicesQuantities, String>> spiceColumns = new ArrayList<>();
+        ArrayList<TableColumn<spicesQuantities, Integer>> mapColumns = new ArrayList<>();
+        ArrayList<TableColumn<spicesQuantities, Double>> quantityColumns = new ArrayList<>();
+
+        TableColumn<spicesQuantities, String> spiceCol = new TableColumn<>("Spice");
+        spiceCol.setStyle("-fx-alignment: CENTER");
+        spiceCol.setCellValueFactory(new PropertyValueFactory<>("spice"));
+
+        TableColumn<spicesQuantities, Integer> mapCol = new TableColumn<>("Mapping");
+        mapCol.setStyle("-fx-alignment: CENTER");
+        mapCol.setCellValueFactory(new PropertyValueFactory<>("mapping"));
+
+        TableColumn<spicesQuantities, Double> quantityCol = new TableColumn<>("Quantity");
+        quantityCol.setStyle("-fx-alignment: CENTER");
+        quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+
+        spiceColumns.add(spiceCol);
+        mapColumns.add(mapCol);
+        quantityColumns.add(quantityCol);
+
+        selectedRecipeTable.getColumns().addAll(spiceColumns);
+        selectedRecipeTable.getColumns().addAll(mapColumns);
+        selectedRecipeTable.getColumns().addAll(quantityColumns);
+
+        //selectedRecipeTable.getItems().add(selectedRecipe);
+
+        selectedRecipeTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        selectedRecipeTable.setPrefWidth(300);
+        selectedRecipeTable.setPrefHeight(400);
+
         table.setRowFactory(event -> { // to fetch spice and quantity data for selected recipe
             TableRow<recipeInfo> row = new TableRow<>();
             row.setOnMouseClicked(click -> {
                 if (click.getClickCount() == 1 && !row.isEmpty()) {
                     recipeInfo selectedRecipe = table.getSelectionModel().getSelectedItem();
+                    /*for(MapPage.mapInfo map : MapPage.data) { // go through each mapping in data
+                        hashData.put(map.getMapping(), 0.0);
+                    }*/
                     if (selectedRecipe != null) {
-                        insertRecipe(selectedRecipe);
+                        //insertRecipe(selectedRecipe);
+                        List<spicesQuantities> spicesQuantitiesList = selectedRecipe.getSpicesQuantities();
+                        selectedRecipeData.setAll(spicesQuantitiesList);
                     }
                     try {
                         primaryStage.close();
+                        viewSpices();
                         //confirmListener();
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -65,6 +107,8 @@ public class RecipePage extends Application {
             });
             return row;
         });
+
+        selectedRecipeTable.setItems(selectedRecipeData);
 
         BorderPane borderPane = new BorderPane();
 
@@ -100,7 +144,7 @@ public class RecipePage extends Application {
         backButton.setFont(new Font("System Bold", 44.0));
         backButton.setOnAction(event -> {
             primaryStage.close();
-            backListener();
+            homeListener();
         });
         anchorPane.getChildren().add(backButton);
 
@@ -143,27 +187,38 @@ public class RecipePage extends Application {
         Stage stage = new Stage();
         stage.initStyle(StageStyle.UNDECORATED);
         //stage.setFullScreen(true);
-        LandingPage landingPage = new LandingPage();
-        landingPage.start(stage);
+        RecipePage recipePage = new RecipePage();
+        recipePage.start(stage);
     }
 
     public class recipeInfo { // class to hold all necessary recipe data
         private String RecipeName;
-        private String Spice1;
-        private String Spice2;
-        private String Spice3;
-        private double Quantity1;
-        private double Quantity2;
-        private double Quantity3;
+        private String spice1;
+        private String spice2;
+        private String spice3;
+        private int mapping1;
+        private int mapping2;
+        private int mapping3;
+        private double quantity1;
+        private double quantity2;
+        private double quantity3;
+        private List<spicesQuantities> spicesQuantitiesList;
 
-        public recipeInfo(String RecipeName, String Spice1, String Spice2, String Spice3, double Quantity1, double Quantity2, double Quantity3) {
+        public recipeInfo(String RecipeName, String spice1, String spice2, String spice3, int mapping1, int mapping2, int mapping3, double quantity1, double quantity2, double quantity3) {
             this.RecipeName = RecipeName;
-            this.Spice1 = Spice1;
-            this.Spice2 = Spice2;
-            this.Spice3 = Spice3;
-            this.Quantity1 = Quantity1;
-            this.Quantity2 = Quantity2;
-            this.Quantity3 = Quantity3;
+            this.spice1 = spice1;
+            this.spice2 = spice2;
+            this.spice3 = spice3;
+            this.mapping1 = mapping1;
+            this.mapping2 = mapping2;
+            this.mapping3 = mapping3;
+            this.quantity1 = quantity1;
+            this.quantity2 = quantity2;
+            this.quantity3 = quantity3;
+            this.spicesQuantitiesList = new ArrayList<>();
+            this.spicesQuantitiesList.add(new spicesQuantities(spice1, mapping1, quantity1));
+            this.spicesQuantitiesList.add(new spicesQuantities(spice2, mapping2, quantity2));
+            this.spicesQuantitiesList.add(new spicesQuantities(spice3, mapping3, quantity3));
         }
 
         public String getRecipeName() {
@@ -171,79 +226,74 @@ public class RecipePage extends Application {
         }
 
         public String getSpice1() {
-            return Spice1;
+            return spice1;
         }
 
         public String getSpice2() {
-            return Spice2;
+            return spice2;
         }
 
         public String getSpice3() {
-            return Spice3;
+            return spice3;
         }
 
         public double getQuantity1() {
-            return Quantity1;
+            return quantity1;
         }
 
         public double getQuantity2() {
-            return Quantity2;
+            return quantity2;
         }
 
         public double getQuantity3() {
-            return Quantity3;
+            return quantity3;
+        }
+
+        public int getMapping1() {
+            return mapping1;
+        }
+
+        public int getMapping2() {
+            return mapping2;
+        }
+
+        public int getMapping3() {
+            return mapping3;
+        }
+
+        public List<spicesQuantities> getSpicesQuantities() {
+            return spicesQuantitiesList;
         }
     }
 
-    private void insertRecipe(recipeInfo selectedRecipe) {
+    public class spicesQuantities {
+        private String spice;
+        private int mapping;
+        private double quantity;
+
+        public spicesQuantities(String spice, int mapping, double quantity) {
+            this.spice = spice;
+            this.mapping = mapping;
+            this.quantity = quantity;
+        }
+
+        public String getSpice() {
+            return spice;
+        }
+
+        public Integer getMapping() {
+            return mapping;
+        }
+
+        public double getQuantity() {
+            return quantity;
+        }
+    }
+
+    private void viewSpices() {
         Stage stage = new Stage();
         stage.initStyle(StageStyle.UNDECORATED);
 
-        TableView<recipeInfo> selectedRecipeTable = new TableView<>();
-
-        ArrayList<TableColumn<recipeInfo, String>> spiceColumns = new ArrayList<>();
-        ArrayList<TableColumn<recipeInfo, Double>> quantityColumns = new ArrayList<>();
-
-        TableColumn<recipeInfo, String> spiceCol1 = new TableColumn<>("Spice 1");
-        spiceCol1.setStyle("-fx-alignment: CENTER");
-        spiceCol1.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getSpice1()));
-
-        TableColumn<recipeInfo, String> spiceCol2 = new TableColumn<>("Spice 2");
-        spiceCol2.setStyle("-fx-alignment: CENTER");
-        spiceCol2.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getSpice2()));
-
-        TableColumn<recipeInfo, String> spiceCol3 = new TableColumn<>("Spice 3");
-        spiceCol3.setStyle("-fx-alignment: CENTER");
-        spiceCol3.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getSpice3()));
-
-        TableColumn<recipeInfo, Double> quantityCol1 = new TableColumn<>("Quantity 1");
-        quantityCol1.setStyle("-fx-alignment: CENTER");
-        quantityCol1.setCellValueFactory(data -> new SimpleDoubleProperty(data.getValue().getQuantity1()).asObject());
-
-        TableColumn<recipeInfo, Double> quantityCol2 = new TableColumn<>("Quantity 2");
-        quantityCol2.setStyle("-fx-alignment: CENTER");
-        quantityCol2.setCellValueFactory(data -> new SimpleDoubleProperty(data.getValue().getQuantity2()).asObject());
-
-        TableColumn<recipeInfo, Double> quantityCol3 = new TableColumn<>("Quantity 3");
-        quantityCol3.setStyle("-fx-alignment: CENTER");
-        quantityCol3.setCellValueFactory(data -> new SimpleDoubleProperty(data.getValue().getQuantity3()).asObject());
-
-        spiceColumns.add(spiceCol1);
-        spiceColumns.add(spiceCol2);
-        spiceColumns.add(spiceCol3);
-        quantityColumns.add(quantityCol1);
-        quantityColumns.add(quantityCol2);
-        quantityColumns.add(quantityCol3);
-
-        selectedRecipeTable.getColumns().addAll(spiceColumns);
-        selectedRecipeTable.getColumns().addAll(quantityColumns);
-
-        selectedRecipeTable.getItems().add(selectedRecipe);
-
-        selectedRecipeTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        selectedRecipeTable.setPrefWidth(300);
-        selectedRecipeTable.setPrefHeight(400);
-        
         BorderPane borderPane = new BorderPane();
 
         AnchorPane anchorPane = new AnchorPane();
@@ -254,21 +304,8 @@ public class RecipePage extends Application {
         AnchorPane.setLeftAnchor(anchorPane, 0.0);
         AnchorPane.setRightAnchor(anchorPane, 0.0);
         AnchorPane.setBottomAnchor(anchorPane, 0.0);
-        
-        Label confirmInstruction = new Label();
-        confirmInstruction.setText("Do you want to dispense the following spices?");
-        confirmInstruction.setTextFill(Color.WHITE);
-        confirmInstruction.setFont(new Font("System Bold", 36.0));
-        confirmInstruction.setMaxWidth(Double.MAX_VALUE);
-        AnchorPane.setLeftAnchor(confirmInstruction, 0.0);
-        AnchorPane.setRightAnchor(confirmInstruction, 0.0);
-        confirmInstruction.setAlignment(Pos.CENTER);
-        confirmInstruction.setPrefWidth(358.0);
-        confirmInstruction.setPrefHeight(40.0);
 
-        anchorPane.getChildren().add(confirmInstruction);
-
-        Button backButton = new Button("←"); // back button to go back to recipes page
+        Button backButton = new Button("←"); // back button to go back to recipe page
         backButton.setLayoutX(10);
         backButton.setLayoutY(anchorPane.getHeight() - backButton.getPrefHeight() - 10);
         backButton.setPrefWidth(100.0);
@@ -289,6 +326,19 @@ public class RecipePage extends Application {
         anchorPane.heightProperty().addListener((obs, oldHeight, newHeight) -> {
             backButton.setLayoutY(newHeight.doubleValue() - backButton.getPrefHeight() - 10);
         });
+
+        Label confirmInstruction = new Label();
+        confirmInstruction.setText("Do you want to dispense the following spices?");
+        confirmInstruction.setTextFill(Color.WHITE);
+        confirmInstruction.setFont(new Font("System Bold", 36.0));
+        confirmInstruction.setMaxWidth(Double.MAX_VALUE);
+        AnchorPane.setLeftAnchor(confirmInstruction, 0.0);
+        AnchorPane.setRightAnchor(confirmInstruction, 0.0);
+        confirmInstruction.setAlignment(Pos.CENTER);
+        confirmInstruction.setPrefWidth(358.0);
+        confirmInstruction.setPrefHeight(80.0);
+
+        anchorPane.getChildren().add(confirmInstruction);
 
         Image logo = new Image("logo.png");
         ImageView logoView = new ImageView(logo);
@@ -324,7 +374,7 @@ public class RecipePage extends Application {
 
         Button no = new Button("No"); // clear tableview data
         no.setOnAction(event -> {
-            ObservableList<recipeInfo> data = selectedRecipeTable.getItems();
+            ObservableList<spicesQuantities> data = selectedRecipeTable.getItems();
             data.clear(); // clear data
         });
 

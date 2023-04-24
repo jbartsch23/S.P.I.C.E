@@ -46,6 +46,15 @@ public class SerialCommunication {
         myPort.closePort();
         sc.close();
     }
+
+    /*public static void writeData() {
+
+    }*/
+
+    /*public static void readData() {
+
+    }*/
+
     public static void main (String[] args) {
         testComm();
     }

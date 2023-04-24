@@ -1,5 +1,4 @@
 import java.io.IOException;
-//import java.util.Scanner;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -140,7 +139,7 @@ public class LandingPage extends Application {
         });
 
         Label mapLabel = new Label();
-        mapLabel.setText("Assign spices to containers.");
+        mapLabel.setText("View mappings for each spice.");
         mapLabel.setTextFill(Color.WHITE);
         mapLabel.setFont(new Font("System Bold", 24.0));
         mapLabel.setLayoutX(anchorPane.getWidth() + mapLabel.getPrefWidth() + 400);
