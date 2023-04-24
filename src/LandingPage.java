@@ -17,7 +17,6 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.scene.Node;
-import com.fazecast.jSerialComm.*;
  
 public class LandingPage extends Application {
     @Override
