@@ -133,10 +133,10 @@ public class SpicePage extends Application {
 
         anchorPane.getChildren().add(spiceInstruction);
         
-        AnchorPane.setTopAnchor(borderPane, 160.0);
+        AnchorPane.setTopAnchor(borderPane, 120.0);
         AnchorPane.setLeftAnchor(borderPane, 160.0);
         AnchorPane.setRightAnchor(borderPane, 160.0);
-        AnchorPane.setBottomAnchor(borderPane, 300.0);
+        AnchorPane.setBottomAnchor(borderPane, 280.0);
 
         borderPane.setCenter(table);
 

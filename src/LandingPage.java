@@ -119,7 +119,7 @@ public class LandingPage extends Application {
         Label recipeLabel = new Label();
         recipeLabel.setText("Select spices based off a recipe.");
         recipeLabel.setTextFill(Color.WHITE);
-        recipeLabel.setFont(new Font("System Bold", 22.0));
+        recipeLabel.setFont(new Font("System Bold", 20.0));
         recipeLabel.setLayoutX(anchorPane.getWidth() + recipeLabel.getPrefWidth() + 400);
         recipeLabel.setLayoutY(anchorPane.getHeight() + recipeLabel.getPrefHeight() + 230);
         recipeLabel.setPrefWidth(400.0);
