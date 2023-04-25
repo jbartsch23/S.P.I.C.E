@@ -42,7 +42,7 @@ public class SpicePage extends Application {
         ArrayList<TableColumn<spiceInfo, String>> columns = new ArrayList<>();
         
         TableColumn<spiceInfo, String> spiceCol = new TableColumn<>("Spice");
-        spiceCol.setStyle("-fx-alignment: CENTER");
+        spiceCol.setStyle("-fx-alignment: CENTER; -fx-font-size: 16px");
         spiceCol.setCellValueFactory(new PropertyValueFactory<>("Spice"));
 
         columns.add(spiceCol);
@@ -53,6 +53,7 @@ public class SpicePage extends Application {
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         table.setPrefWidth(300);
         table.setPrefHeight(400);
+        table.setStyle("-fx-font-size: 16px");
 
         BorderPane borderPane = new BorderPane();
 
@@ -94,7 +95,7 @@ public class SpicePage extends Application {
         ArrayList<TableColumn<spiceInfo, Double>> quantityColumn = new ArrayList<>();
         
         TableColumn<spiceInfo, String> spiceColFinal = new TableColumn<>("Spice");
-        spiceColFinal.setStyle("-fx-alignment: CENTER");
+        spiceColFinal.setStyle("-fx-alignment: CENTER; -fx-font-size: 16px");
         spiceColFinal.setCellValueFactory(new PropertyValueFactory<>("Spice"));
 
         TableColumn<spiceInfo, Integer> mapCol = new TableColumn<>("Mapping");
@@ -102,7 +103,7 @@ public class SpicePage extends Application {
         mapCol.setCellValueFactory(new PropertyValueFactory<>("Mapping"));
 
         TableColumn<spiceInfo, Double> quantityCol = new TableColumn<>("Quantity");
-        quantityCol.setStyle("-fx-alignment: CENTER");
+        quantityCol.setStyle("-fx-alignment: CENTER; -fx-font-size: 16px");
         quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 
         spiceColumn.add(spiceColFinal);
@@ -117,11 +118,12 @@ public class SpicePage extends Application {
         selectedSpiceTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         selectedSpiceTable.setPrefWidth(300);
         selectedSpiceTable.setPrefHeight(400);
+        selectedSpiceTable.setStyle("-fx-font-size: 16px");
 
         Label spiceInstruction = new Label();
         spiceInstruction.setText("Choose spices below to dispense and measure the quantities for each in tsp.");
         spiceInstruction.setTextFill(Color.WHITE);
-        spiceInstruction.setFont(new Font("System Bold", 24.0));
+        spiceInstruction.setFont(new Font("System Bold", 20.0));
         spiceInstruction.setMaxWidth(Double.MAX_VALUE);
         AnchorPane.setLeftAnchor(spiceInstruction, 0.0);
         AnchorPane.setRightAnchor(spiceInstruction, 0.0);
@@ -188,7 +190,7 @@ public class SpicePage extends Application {
         addSpice.setPrefWidth(50.0);
         addSpice.setPrefHeight(50.0);
         addSpice.setStyle("-fx-cursor: hand;");
-        addSpice.setFont(new Font("System Bold", 33.0));
+        addSpice.setFont(new Font("System Bold", 24.0));
         addSpice.setOnAction(event -> {
             spiceInfo selectedSpice = table.getSelectionModel().getSelectedItem();
             if (selectedSpice != null) {
@@ -396,6 +398,7 @@ public class SpicePage extends Application {
         optionBox.setSpacing(300);
 
         Button yes = new Button("Yes"); // dispense spices
+        yes.setFont(new Font("System Bold", 24.0));
         yes.setOnAction(event -> {
             //SerialCommunication.testComm();
             stage.close();
@@ -403,6 +406,7 @@ public class SpicePage extends Application {
         });
 
         Button no = new Button("No"); // clear tableview data
+        no.setFont(new Font("System Bold", 24.0));
         no.setOnAction(event -> {
             ObservableList<spiceInfo> data = selectedSpiceTable.getItems();
             data.clear(); // clear data

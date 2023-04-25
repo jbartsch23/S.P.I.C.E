@@ -39,7 +39,7 @@ public class RecipePage extends Application {
         ArrayList<TableColumn<recipeInfo, String>> columns = new ArrayList<>();
         
         TableColumn<recipeInfo, String> recipeCol = new TableColumn<>("Recipe Name");
-        recipeCol.setStyle("-fx-alignment: CENTER");
+        recipeCol.setStyle("-fx-alignment: CENTER; -fx-font-size: 16px");
         recipeCol.setCellValueFactory(new PropertyValueFactory<>("RecipeName"));
 
         columns.add(recipeCol);
@@ -50,6 +50,7 @@ public class RecipePage extends Application {
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         table.setPrefWidth(300);
         table.setPrefHeight(400);
+        table.setStyle("-fx-font-size: 16px");
 
         ObservableList<spicesQuantities> selectedRecipeData = FXCollections.observableArrayList();
 
@@ -58,7 +59,7 @@ public class RecipePage extends Application {
         ArrayList<TableColumn<spicesQuantities, Double>> quantityColumns = new ArrayList<>();
 
         TableColumn<spicesQuantities, String> spiceCol = new TableColumn<>("Spice");
-        spiceCol.setStyle("-fx-alignment: CENTER");
+        spiceCol.setStyle("-fx-alignment: CENTER; -fx-font-size: 16px");
         spiceCol.setCellValueFactory(new PropertyValueFactory<>("spice"));
 
         TableColumn<spicesQuantities, Integer> mapCol = new TableColumn<>("Mapping");
@@ -66,7 +67,7 @@ public class RecipePage extends Application {
         mapCol.setCellValueFactory(new PropertyValueFactory<>("mapping"));
 
         TableColumn<spicesQuantities, Double> quantityCol = new TableColumn<>("Quantity");
-        quantityCol.setStyle("-fx-alignment: CENTER");
+        quantityCol.setStyle("-fx-alignment: CENTER; -fx-font-size: 16px");
         quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 
         spiceColumns.add(spiceCol);
@@ -82,6 +83,7 @@ public class RecipePage extends Application {
         selectedRecipeTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         selectedRecipeTable.setPrefWidth(300);
         selectedRecipeTable.setPrefHeight(400);
+        selectedRecipeTable.setStyle("-fx-font-size: 16px");
 
         table.setRowFactory(event -> { // to fetch spice and quantity data for selected recipe
             TableRow<recipeInfo> row = new TableRow<>();
@@ -377,6 +379,7 @@ public class RecipePage extends Application {
         optionBox.setSpacing(300);
 
         Button yes = new Button("Yes"); // dispense spices
+        yes.setFont(new Font("System Bold", 24.0));
         yes.setOnAction(event -> {
             //SerialCommunication.testComm();
             stage.close();
@@ -384,6 +387,7 @@ public class RecipePage extends Application {
         });
 
         Button no = new Button("No"); // clear tableview data
+        no.setFont(new Font("System Bold", 24.0));
         no.setOnAction(event -> {
             ObservableList<spicesQuantities> data = selectedRecipeTable.getItems();
             data.clear(); // clear data

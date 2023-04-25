@@ -37,11 +37,11 @@ public class MapPage extends Application {
         ArrayList<TableColumn<mapInfo, Integer>> mapColumns = new ArrayList<>();
         
         TableColumn<mapInfo, String> spiceCol = new TableColumn<>("Spice");
-        spiceCol.setStyle("-fx-alignment: CENTER");
+        spiceCol.setStyle("-fx-alignment: CENTER; -fx-font-size: 16px");
         spiceCol.setCellValueFactory(new PropertyValueFactory<>("Spice"));
 
         TableColumn<mapInfo, Integer> mapCol = new TableColumn<>("Mapping");
-        mapCol.setStyle("-fx-alignment: CENTER");
+        mapCol.setStyle("-fx-alignment: CENTER; -fx-font-size: 16px");
         mapCol.setCellValueFactory(new PropertyValueFactory<>("Mapping"));
 
         spiceColumns.add(spiceCol);
@@ -54,6 +54,7 @@ public class MapPage extends Application {
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         table.setPrefWidth(300);
         table.setPrefHeight(400);
+        table.setStyle("-fx-font-size: 16px");
         
         BorderPane borderPane = new BorderPane();
 

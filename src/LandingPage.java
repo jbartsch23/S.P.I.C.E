@@ -119,7 +119,7 @@ public class LandingPage extends Application {
         Label recipeLabel = new Label();
         recipeLabel.setText("Select spices based off a recipe.");
         recipeLabel.setTextFill(Color.WHITE);
-        recipeLabel.setFont(new Font("System Bold", 24.0));
+        recipeLabel.setFont(new Font("System Bold", 22.0));
         recipeLabel.setLayoutX(anchorPane.getWidth() + recipeLabel.getPrefWidth() + 400);
         recipeLabel.setLayoutY(anchorPane.getHeight() + recipeLabel.getPrefHeight() + 230);
         recipeLabel.setPrefWidth(400.0);
@@ -131,7 +131,7 @@ public class LandingPage extends Application {
         map.setPrefWidth(146.0);
         map.setPrefHeight(50.0);
         map.setStyle("-fx-cursor: hand;");
-        map.setFont(new Font("System Bold", 24.0));
+        map.setFont(new Font("System Bold", 20.0));
         map.setOnAction(event -> {
             primaryStage.close();
             mapListener();
@@ -140,7 +140,7 @@ public class LandingPage extends Application {
         Label mapLabel = new Label();
         mapLabel.setText("View mappings for each spice.");
         mapLabel.setTextFill(Color.WHITE);
-        mapLabel.setFont(new Font("System Bold", 24.0));
+        mapLabel.setFont(new Font("System Bold", 22.0));
         mapLabel.setLayoutX(anchorPane.getWidth() + mapLabel.getPrefWidth() + 400);
         mapLabel.setLayoutY(anchorPane.getHeight() + mapLabel.getPrefHeight() + 310);
         mapLabel.setPrefWidth(400.0);
