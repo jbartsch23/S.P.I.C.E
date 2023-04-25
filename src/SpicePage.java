@@ -37,7 +37,6 @@ public class SpicePage extends Application {
     );
     ArrayList<spiceInfo> rows = new ArrayList<>();
 
-    
     @Override
     public void start(Stage primaryStage) {
         ArrayList<TableColumn<spiceInfo, String>> columns = new ArrayList<>();
@@ -91,7 +90,7 @@ public class SpicePage extends Application {
         anchorPane.getChildren().add(measurementDisplay);
 
         ArrayList<TableColumn<spiceInfo, String>> spiceColumn = new ArrayList<>();
-        ArrayList<TableColumn<spiceInfo, Integer>> mapColumn = new ArrayList<>();
+        //ArrayList<TableColumn<spiceInfo, Integer>> mapColumn = new ArrayList<>();
         ArrayList<TableColumn<spiceInfo, Double>> quantityColumn = new ArrayList<>();
         
         TableColumn<spiceInfo, String> spiceColFinal = new TableColumn<>("Spice");
@@ -107,11 +106,11 @@ public class SpicePage extends Application {
         quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 
         spiceColumn.add(spiceColFinal);
-        mapColumn.add(mapCol);
+        //mapColumn.add(mapCol);
         quantityColumn.add(quantityCol);
 
         selectedSpiceTable.getColumns().addAll(spiceColumn);
-        selectedSpiceTable.getColumns().addAll(mapColumn);
+        //selectedSpiceTable.getColumns().addAll(mapColumn);
         selectedSpiceTable.getColumns().addAll(quantityColumn);
 
         //selectedSpiceTable.setItems(data);

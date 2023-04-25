@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -28,6 +29,7 @@ public class RecipePage extends Application {
         new recipeInfo("Honey Garlic Pork", "Pepper", "Garlic Powder", "Garlic", 2, 3, 4, 0.80, 0.30, 0.40)
     );
     TableView<spicesQuantities> selectedRecipeTable = new TableView<>();
+    ArrayList<spicesQuantities> rows = new ArrayList<>();
 
     //ArrayList<String> spices;
     //HashMap<Integer, Double> hashData = new HashMap<>();
@@ -52,7 +54,7 @@ public class RecipePage extends Application {
         ObservableList<spicesQuantities> selectedRecipeData = FXCollections.observableArrayList();
 
         ArrayList<TableColumn<spicesQuantities, String>> spiceColumns = new ArrayList<>();
-        ArrayList<TableColumn<spicesQuantities, Integer>> mapColumns = new ArrayList<>();
+        //ArrayList<TableColumn<spicesQuantities, Integer>> mapColumns = new ArrayList<>();
         ArrayList<TableColumn<spicesQuantities, Double>> quantityColumns = new ArrayList<>();
 
         TableColumn<spicesQuantities, String> spiceCol = new TableColumn<>("Spice");
@@ -68,11 +70,11 @@ public class RecipePage extends Application {
         quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 
         spiceColumns.add(spiceCol);
-        mapColumns.add(mapCol);
+        //mapColumns.add(mapCol);
         quantityColumns.add(quantityCol);
 
         selectedRecipeTable.getColumns().addAll(spiceColumns);
-        selectedRecipeTable.getColumns().addAll(mapColumns);
+        //selectedRecipeTable.getColumns().addAll(mapColumns);
         selectedRecipeTable.getColumns().addAll(quantityColumns);
 
         //selectedRecipeTable.getItems().add(selectedRecipe);
@@ -264,7 +266,7 @@ public class RecipePage extends Application {
         }
     }
 
-    public class spicesQuantities {
+    public class spicesQuantities implements Comparable<spicesQuantities> {
         private String spice;
         private int mapping;
         private double quantity;
@@ -285,6 +287,17 @@ public class RecipePage extends Application {
 
         public double getQuantity() {
             return quantity;
+        }
+
+        @Override
+        public String toString() {
+            return "Spice: " + spice + ", Mapping: " + mapping + ", Quantity: " + quantity;
+        }
+
+        @Override
+        public int compareTo(spicesQuantities other) {
+            // Compare by mapping value
+            return Integer.compare(this.mapping, other.mapping);
         }
     }
 
@@ -382,6 +395,35 @@ public class RecipePage extends Application {
         AnchorPane.setBottomAnchor(optionBox, 50.0);
         AnchorPane.setLeftAnchor(optionBox, 150.0);
         AnchorPane.setRightAnchor(optionBox, 150.0);
+
+        ObservableList<spicesQuantities> items = selectedRecipeTable.getItems();
+
+        for (spicesQuantities item : items) {
+            rows.add(item);
+            System.out.println("Added item: " + item);
+        }
+
+        Collections.sort(rows);
+
+        System.out.println("Selected spice data: ");
+        for (spicesQuantities row : rows) {
+            System.out.println(row.toString());
+        }
+
+        System.out.println("");
+
+        List<Integer> mappingValues = new ArrayList<>();
+
+        for (spicesQuantities item : items) {
+            int mappingValue = item.getMapping();
+            mappingValues.add(mappingValue);
+        }
+
+        Collections.sort(mappingValues);
+
+        System.out.println("Sorted mapping values: " + mappingValues);
+
+        System.out.println("");
 
         Scene scene = new Scene(anchorPane, 1024, 600);
         stage.setScene(scene);
