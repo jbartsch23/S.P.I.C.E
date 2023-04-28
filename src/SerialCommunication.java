@@ -1,9 +1,10 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
-//import com.fazecast.jSerialComm.*;
+import com.fazecast.jSerialComm.*;
 
 public class SerialCommunication {
-    /*public static void testComm() {
+    public static void testComm(ArrayList<String> str) {
         Scanner sc = new Scanner(System.in);
         //System.out.println("List COM ports");
         SerialPort[] AvailablePorts = SerialPort.getCommPorts();
@@ -26,26 +27,34 @@ public class SerialCommunication {
 
         try{
             while(true) {
-                if(System.in.available() > 0) {
+                /*if(System.in.available() > 0) {
                     String s = sc.nextLine() + "\n";
                     Thread.sleep(2000);
                     byte[] writeBuffer = s.getBytes();
                     myPort.writeBytes(writeBuffer, writeBuffer.length);
+                }*/
+
+                Thread.sleep(2000);
+                byte[] writeBuffer0;
+                for(String string: str){
+                    writeBuffer0 = string.getBytes();
+                    myPort.writeBytes(writeBuffer0, writeBuffer0.length);
                 }
-                while(myPort.bytesAvailable() > 0) {
-                    byte[] readBuffer = new byte[myPort.bytesAvailable()];
-                    myPort.readBytes(readBuffer, readBuffer.length);
-                    for(int i = 0; i < readBuffer.length; i++) {
-                        System.out.print((char)readBuffer[i]);
-                    }
-                }
+                //break;
+                // while(myPort.bytesAvailable() > 0) {
+                //     byte[] readBuffer = new byte[myPort.bytesAvailable()];
+                //     myPort.readBytes(readBuffer, readBuffer.length);
+                //     for(int i = 0; i < readBuffer.length; i++) {
+                //         System.out.print((char)readBuffer[i]);
+                //     }
+                // }
             }
         } catch(Exception e) {
             e.printStackTrace();
         }
         myPort.closePort();
         sc.close();
-    }*/
+    }
 
     public static void main (String[] args) {
         //testComm();

@@ -26,13 +26,10 @@ public class RecipePage extends Application {
     private final TableView<recipeInfo> table = new TableView<>();
     private final ObservableList<recipeInfo> data = FXCollections.observableArrayList( // populate table
         new recipeInfo("Garlic Butter Chicken", "Salt", "Pepper", "Garlic", 1, 2, 4, 0.50, 0.75, 0.25),
-        new recipeInfo("Honey Garlic Pork", "Pepper", "Garlic Powder", "Garlic", 2, 3, 4, 0.80, 0.30, 0.40)
+        new recipeInfo("Honey Garlic Pork", "Salt", "Garlic Powder", "Garlic", 1, 3, 4, 0.80, 0.30, 0.40)
     );
     TableView<spicesQuantities> selectedRecipeTable = new TableView<>();
     ArrayList<spicesQuantities> rows = new ArrayList<>();
-
-    //ArrayList<String> spices;
-    //HashMap<Integer, Double> hashData = new HashMap<>();
 
     @Override
     public void start(Stage primaryStage) {
@@ -55,7 +52,6 @@ public class RecipePage extends Application {
         ObservableList<spicesQuantities> selectedRecipeData = FXCollections.observableArrayList();
 
         ArrayList<TableColumn<spicesQuantities, String>> spiceColumns = new ArrayList<>();
-        //ArrayList<TableColumn<spicesQuantities, Integer>> mapColumns = new ArrayList<>();
         ArrayList<TableColumn<spicesQuantities, Double>> quantityColumns = new ArrayList<>();
 
         TableColumn<spicesQuantities, String> spiceCol = new TableColumn<>("Spice");
@@ -71,14 +67,10 @@ public class RecipePage extends Application {
         quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 
         spiceColumns.add(spiceCol);
-        //mapColumns.add(mapCol);
         quantityColumns.add(quantityCol);
 
         selectedRecipeTable.getColumns().addAll(spiceColumns);
-        //selectedRecipeTable.getColumns().addAll(mapColumns);
         selectedRecipeTable.getColumns().addAll(quantityColumns);
-
-        //selectedRecipeTable.getItems().add(selectedRecipe);
 
         selectedRecipeTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         selectedRecipeTable.setPrefWidth(300);
@@ -90,11 +82,7 @@ public class RecipePage extends Application {
             row.setOnMouseClicked(click -> {
                 if (click.getClickCount() == 1 && !row.isEmpty()) {
                     recipeInfo selectedRecipe = table.getSelectionModel().getSelectedItem();
-                    /*for(MapPage.mapInfo map : MapPage.data) { // go through each mapping in data
-                        hashData.put(map.getMapping(), 0.0);
-                    }*/
                     if (selectedRecipe != null) {
-                        //insertRecipe(selectedRecipe);
                         List<spicesQuantities> spicesQuantitiesList = selectedRecipe.getSpicesQuantities();
                         selectedRecipeData.setAll(spicesQuantitiesList);
                     }
@@ -161,8 +149,8 @@ public class RecipePage extends Application {
         Image logo = new Image("logo.png");
         ImageView logoView = new ImageView(logo);
         logoView.setPreserveRatio(true);
-        logoView.setFitWidth(200); // desired width of image
-        logoView.setFitHeight(200); // desired height of image
+        logoView.setFitWidth(200); // image width
+        logoView.setFitHeight(200); // image height
 
         anchorPane.getChildren().add(logoView);
         AnchorPane.setBottomAnchor(logoView, 0.0);
@@ -181,14 +169,12 @@ public class RecipePage extends Application {
 
         Scene scene = new Scene(anchorPane, 1024, 600);
         primaryStage.setScene(scene);
-        //primaryStage.setFullScreen(true);
         primaryStage.show();
     }
 
     private void backListener() { // go back to landing page
         Stage stage = new Stage();
         stage.initStyle(StageStyle.UNDECORATED);
-        //stage.setFullScreen(true);
         RecipePage recipePage = new RecipePage();
         recipePage.start(stage);
     }
@@ -298,8 +284,7 @@ public class RecipePage extends Application {
 
         @Override
         public int compareTo(spicesQuantities other) {
-            // Compare by mapping value
-            return Integer.compare(this.mapping, other.mapping);
+            return Integer.compare(this.mapping, other.mapping); // compare by mapping value
         }
     }
 
@@ -356,8 +341,8 @@ public class RecipePage extends Application {
         Image logo = new Image("logo.png");
         ImageView logoView = new ImageView(logo);
         logoView.setPreserveRatio(true);
-        logoView.setFitWidth(200); // desired width of image
-        logoView.setFitHeight(200); // desired height of image
+        logoView.setFitWidth(200); // image width
+        logoView.setFitHeight(200); // image height
 
         anchorPane.getChildren().add(logoView);
         AnchorPane.setBottomAnchor(logoView, 0.0);
@@ -378,10 +363,29 @@ public class RecipePage extends Application {
         optionBox.setAlignment(Pos.CENTER);
         optionBox.setSpacing(300);
 
+        List<Integer> mappingValues = new ArrayList<>();
+
+        ObservableList<spicesQuantities> items = selectedRecipeTable.getItems();
+
+        for (spicesQuantities item : items) {
+            int mappingValue = item.getMapping();
+            mappingValues.add(mappingValue);
+        }
+
+        Collections.sort(mappingValues);
+
+        System.out.println("Sorted mapping values: " + mappingValues);
+
+        System.out.println("");
+
         Button yes = new Button("Yes"); // dispense spices
         yes.setFont(new Font("System Bold", 24.0));
+        ArrayList<String> map_arr = new ArrayList<>();
         yes.setOnAction(event -> {
-            //SerialCommunication.testComm();
+            for (int i = 0; i < mappingValues.size(); i++) {
+                map_arr.add(Integer.toString(mappingValues.get(i)));
+            }
+            SerialCommunication.testComm(map_arr);
             stage.close();
             homeListener();
         });
@@ -400,8 +404,6 @@ public class RecipePage extends Application {
         AnchorPane.setLeftAnchor(optionBox, 150.0);
         AnchorPane.setRightAnchor(optionBox, 150.0);
 
-        ObservableList<spicesQuantities> items = selectedRecipeTable.getItems();
-
         for (spicesQuantities item : items) {
             rows.add(item);
             System.out.println("Added item: " + item);
@@ -416,29 +418,14 @@ public class RecipePage extends Application {
 
         System.out.println("");
 
-        List<Integer> mappingValues = new ArrayList<>();
-
-        for (spicesQuantities item : items) {
-            int mappingValue = item.getMapping();
-            mappingValues.add(mappingValue);
-        }
-
-        Collections.sort(mappingValues);
-
-        System.out.println("Sorted mapping values: " + mappingValues);
-
-        System.out.println("");
-
         Scene scene = new Scene(anchorPane, 1024, 600);
         stage.setScene(scene);
-        //primaryStage.setFullScreen(true);
         stage.show();
     }
 
     private void homeListener() {
         Stage stage = new Stage();
         stage.initStyle(StageStyle.UNDECORATED);
-        //stage.setFullScreen(true);
         LandingPage landingPage = new LandingPage();
         landingPage.start(stage);
     }

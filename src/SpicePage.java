@@ -91,7 +91,6 @@ public class SpicePage extends Application {
         anchorPane.getChildren().add(measurementDisplay);
 
         ArrayList<TableColumn<spiceInfo, String>> spiceColumn = new ArrayList<>();
-        //ArrayList<TableColumn<spiceInfo, Integer>> mapColumn = new ArrayList<>();
         ArrayList<TableColumn<spiceInfo, Double>> quantityColumn = new ArrayList<>();
         
         TableColumn<spiceInfo, String> spiceColFinal = new TableColumn<>("Spice");
@@ -107,14 +106,11 @@ public class SpicePage extends Application {
         quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 
         spiceColumn.add(spiceColFinal);
-        //mapColumn.add(mapCol);
         quantityColumn.add(quantityCol);
 
         selectedSpiceTable.getColumns().addAll(spiceColumn);
-        //selectedSpiceTable.getColumns().addAll(mapColumn);
         selectedSpiceTable.getColumns().addAll(quantityColumn);
 
-        //selectedSpiceTable.setItems(data);
         selectedSpiceTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         selectedSpiceTable.setPrefWidth(300);
         selectedSpiceTable.setPrefHeight(400);
@@ -194,12 +190,10 @@ public class SpicePage extends Application {
         addSpice.setOnAction(event -> {
             spiceInfo selectedSpice = table.getSelectionModel().getSelectedItem();
             if (selectedSpice != null) {
-                //double measurement = measurementSlider.getValue();
                 boolean exists = false;
                 for (spiceInfo spice : selectedSpicesList) {
                     if (spice.getSpice().equals(selectedSpice.getSpice())) {
                         spice.setQuantity(measurementSlider.getValue());
-                        //spice.setQuantity(measurement);
                         exists = true;
                         break;
                     }
@@ -209,11 +203,8 @@ public class SpicePage extends Application {
                     int mapValue = selectedSpice.getMapping();
                     double measurement = Math.floor(measurementSlider.getValue() * 100) / 100;
                     selectedSpicesList.add(new spiceInfo(spiceName, mapValue, measurement)); // obtaining user's selected spices
-                    //System.out.println()
                 }
             }
-
-            //ArrayList<spiceInfo> rows = new ArrayList<>();
 
             ObservableList<spiceInfo> items = selectedSpiceTable.getItems();
 
@@ -257,8 +248,6 @@ public class SpicePage extends Application {
         });
 
         Scene scene = new Scene(anchorPane, 1024, 600);
-        //primaryStage.initStyle(StageStyle.UNDECORATED);
-        //primaryStage.setFullScreen(true);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -297,8 +286,7 @@ public class SpicePage extends Application {
 
         @Override
         public int compareTo(spiceInfo other) {
-            // Compare by mapping value
-            return Integer.compare(this.mapping, other.mapping);
+            return Integer.compare(this.mapping, other.mapping); // compare by mapping value
         }
     }
 
@@ -355,8 +343,8 @@ public class SpicePage extends Application {
         Image logo = new Image("logo.png");
         ImageView logoView = new ImageView(logo);
         logoView.setPreserveRatio(true);
-        logoView.setFitWidth(200); // desired width of image
-        logoView.setFitHeight(200); // desired height of image
+        logoView.setFitWidth(200); // image width
+        logoView.setFitHeight(200); // image height
 
         anchorPane.getChildren().add(logoView);
         AnchorPane.setBottomAnchor(logoView, 0.0);
@@ -397,10 +385,27 @@ public class SpicePage extends Application {
         optionBox.setAlignment(Pos.CENTER);
         optionBox.setSpacing(300);
 
+        List<Integer> mappingValues = new ArrayList<>();
+
+        for (spiceInfo item : items) {
+            int mappingValue = item.getMapping();
+            mappingValues.add(mappingValue);
+        }
+
+        Collections.sort(mappingValues);
+
+        System.out.println("Sorted mapping values: " + mappingValues);
+
+        System.out.println("");
+
         Button yes = new Button("Yes"); // dispense spices
         yes.setFont(new Font("System Bold", 24.0));
+        ArrayList<String> map_arr = new ArrayList<>();
         yes.setOnAction(event -> {
-            //SerialCommunication.testComm();
+            for (int i = 0; i < mappingValues.size(); i++) {
+                map_arr.add(Integer.toString(mappingValues.get(i)));
+            }
+            SerialCommunication.testComm(map_arr);
             stage.close();
             homeListener();
         });
@@ -421,14 +426,12 @@ public class SpicePage extends Application {
 
         Scene scene = new Scene(anchorPane, 1024, 600);
         stage.setScene(scene);
-        //primaryStage.setFullScreen(true);
         stage.show();
     }
 
     private void backListener() { // go back to spice page
         Stage stage = new Stage();
         stage.initStyle(StageStyle.UNDECORATED);
-        //stage.setFullScreen(true);
         SpicePage spicePage = new SpicePage();
         spicePage.start(stage);
     }
@@ -436,7 +439,6 @@ public class SpicePage extends Application {
     private void homeListener() { // go back to landing page
         Stage stage = new Stage();
         stage.initStyle(StageStyle.UNDECORATED);
-        //stage.setFullScreen(true);
         LandingPage landingPage = new LandingPage();
         landingPage.start(stage);
     }

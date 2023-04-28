@@ -6,7 +6,7 @@
 int pos = 0;
 Servo servo;
 
-const int stepsPerRevolution = 200;
+const int stepsPerRevolution = 100;
 Stepper myStepper(stepsPerRevolution, 8, 9, 10, 11);
 
 //TODO: FIGURE OUT SYSTEM FOR IMPLEMENTING MULTIPLE DC MOTORS 
@@ -42,8 +42,15 @@ void loop() {
     incoming.toLowerCase();
 
     // turn stepper motor counter clockwise
-    if(incoming.indexOf("left") >= 0) {
-      for (pos = 2; pos >= 0; pos--) {
+    if(incoming.indexOf("left2") >= 0) {
+      for (pos = 0; pos >= 0; pos--) {
+        servo.write(pos);
+        delay(10);
+        myStepper.step(-stepsPerRevolution * 2);
+        delay(500);
+      }
+    } else if (incoming.indexOf("left") >= 0) {
+      for (pos = 0; pos >= 0; pos--) {
         servo.write(pos);
         delay(10);
         myStepper.step(-stepsPerRevolution);
@@ -51,9 +58,18 @@ void loop() {
       }
     }
 
+    else if (incoming.indexOf("right2") >= 0) {
+      for (pos = 0; pos <= 0; pos++) {
+        servo.write(pos);
+        delay(10);
+        myStepper.step(stepsPerRevolution * 2);
+        delay(500);
+      }
+    }
+
     // turn stepper motor clockwise
-    if(incoming.indexOf("right") >= 0) {
-      for (pos = 0; pos <= 1; pos++) {
+    else if(incoming.indexOf("right") >= 0) {
+      for (pos = 0; pos <= 0; pos++) {
         servo.write(pos);
         delay(10);
         myStepper.step(stepsPerRevolution);
@@ -62,7 +78,7 @@ void loop() {
     }
 
     // dispense spice using DC motor
-    if(incoming.indexOf("dispense") >= 0) {
+    else if(incoming.indexOf("dispense") >= 0) {
       // turn DC motor clockwise
       digitalWrite(in1, HIGH);
       digitalWrite(in2, LOW);
@@ -98,7 +114,7 @@ void loop() {
       digitalWrite(in4, LOW);
     }
 
-    if(incoming.indexOf("0") >= 0) {
+    else if(incoming.indexOf("1") >= 0) {
       digitalWrite(in1, HIGH);
       digitalWrite(in2, LOW);
       digitalWrite(in3, LOW);
@@ -113,7 +129,7 @@ void loop() {
       digitalWrite(in4, LOW);
     }
 
-    if(incoming.indexOf("1") >= 0) {
+    else if(incoming.indexOf("2") >= 0) {
       digitalWrite(in1, LOW);
       digitalWrite(in2, HIGH);
       digitalWrite(in3, LOW);
@@ -128,7 +144,7 @@ void loop() {
       digitalWrite(in4, LOW);
     }
 
-    if(incoming.indexOf("2") >= 0) {
+    else if(incoming.indexOf("3") >= 0) {
       digitalWrite(in1, LOW);
       digitalWrite(in2, LOW);
       digitalWrite(in3, HIGH);
@@ -143,12 +159,12 @@ void loop() {
       digitalWrite(in4, LOW);
     }
 
-    if(incoming.indexOf("3") >= 0) {
+    else if(incoming.indexOf("4") >= 0) {
       digitalWrite(in1, LOW);
       digitalWrite(in2, LOW);
       digitalWrite(in3, LOW);
       digitalWrite(in4, HIGH);
-      delay(2000);
+      delay(1500);
       
       // turn off dc motor once dispensing is done
       digitalWrite(in1, LOW);

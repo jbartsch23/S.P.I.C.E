@@ -179,8 +179,8 @@ public class LandingPage extends Application {
         Image logo = new Image("logo.png");
         ImageView logoView = new ImageView(logo);
         logoView.setPreserveRatio(true);
-        logoView.setFitWidth(200); // desired width of image
-        logoView.setFitHeight(200); // desired height of image
+        logoView.setFitWidth(200); // image width
+        logoView.setFitHeight(200); // image height
 
         anchorPane.getChildren().add(logoView);
         AnchorPane.setBottomAnchor(logoView, 0.0);
@@ -193,7 +193,6 @@ public class LandingPage extends Application {
         try {
             Scene scene = new Scene(anchorPane, 1024, 600);
             primaryStage.initStyle(StageStyle.UNDECORATED);
-            //primaryStage.setFullScreen(true);
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (Exception e) {
@@ -210,7 +209,6 @@ public class LandingPage extends Application {
     private void spiceListener() { // go to spices page
         Stage stage = new Stage();
         stage.initStyle(StageStyle.UNDECORATED);
-        //stage.setFullScreen(true);
         SpicePage spicePage = new SpicePage();
         spicePage.start(stage);
     }
@@ -218,7 +216,6 @@ public class LandingPage extends Application {
     private void recipeListener() { // go to recipes page
         Stage stage = new Stage();
         stage.initStyle(StageStyle.UNDECORATED);
-        //stage.setFullScreen(true);
         RecipePage recipePage = new RecipePage();
         recipePage.start(stage);
     }
@@ -226,7 +223,6 @@ public class LandingPage extends Application {
     private void mapListener() { // go to mappings page
         Stage stage = new Stage();
         stage.initStyle(StageStyle.UNDECORATED);
-        //stage.setFullScreen(true);
         MapPage mapPage = new MapPage();
         mapPage.start(stage);
     }
